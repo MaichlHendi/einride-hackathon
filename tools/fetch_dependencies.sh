@@ -12,7 +12,7 @@ fi
 git -C "$vendor_dir/m-explore-ros2" fetch --tags origin
 git -C "$vendor_dir/m-explore-ros2" checkout --detach 326cf8a0b487c34246bb8f3326afbcd69576dc60
 
-for patch in "$project_root"/dependencies/patches/*.patch; do
+for patch in "$project_root"/tools/patches/*.patch; do
   if git -C "$vendor_dir/m-explore-ros2" apply --check "$patch" >/dev/null 2>&1; then
     git -C "$vendor_dir/m-explore-ros2" apply "$patch"
   elif git -C "$vendor_dir/m-explore-ros2" apply --reverse --check "$patch" >/dev/null 2>&1; then

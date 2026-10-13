@@ -16,6 +16,10 @@ git status --short
 git ls-files | sort
 ```
 
+Also confirm that ignored files contain no data intended for upload, review all
+external package and protocol names with the project owner, inspect the staged
+diff, and create deployment secrets at runtime.
+
 The audit is conservative and does not replace review by the code owners. Report
 a suspected exposed credential privately to the maintainers; do not open a public
 issue containing the value.

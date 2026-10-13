@@ -66,8 +66,7 @@ colcon build --symlink-install \
 
 `team_sim` is skipped in the public core build because its robot model and
 bringup packages are external. Build it after supplying equivalent integration
-packages or adapting the dependency boundary documented in
-[`docs/INTEGRATION.md`](docs/INTEGRATION.md).
+packages and adapting its launch and model references to your platform.
 
 ## Tests
 
@@ -82,6 +81,20 @@ colcon test-result --verbose
 
 `PYTHONNOUSERSITE=1` prevents unrelated packages installed under `~/.local`
 from overriding the Python libraries supplied with ROS 2 and Ubuntu.
+
+## Integration boundary
+
+The autonomy packages consume standard ROS lidar, RGB/depth image, camera-info,
+joint-state, IMU, odometry, occupancy-grid, TF, and Nav2 interfaces. The optional
+`team_sim` adapter requires a separately supplied robot description and simulator
+bringup. Its package manifest, world launch, model resolver, and truth entity names
+must be adapted to a different robot.
+
+The mission service remains behind a small HTTP adapter. Supply a compatible
+external service with `--mission-source` or `TEAM_MISSION_SOURCE`, or replace the
+adapter with manual goals. Hardware parameters are examples and must be measured
+on the target platform. The collision monitor must remain the final publisher to
+the physical velocity command topic.
 
 ## Configuration and credentials
 
