@@ -28,7 +28,7 @@ On the target, source its ROS underlay and run:
   ./tools/fetch_dependencies.sh
   cd ~/$remote_workspace
   export PYTHONNOUSERSITE=1
-  colcon build --symlink-install --base-paths src/team-autonomy-stack/src src/team-autonomy-stack/vendor_src \\
+  colcon build --symlink-install --base-paths src/team-autonomy-stack \\
     --packages-up-to team_interfaces team_slam team_planning team_control \\
       team_control_docking team_control_mppi_critic team_perception explore_lite
 EOF

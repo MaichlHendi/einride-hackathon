@@ -13,14 +13,14 @@ recordings, build products, or internal team logs.
 
 | Package | Purpose |
 |---|---|
-| `team_interfaces` | Shared messages for missions, docks, predictions, health, trajectories, and coordination |
-| `team_slam` | `slam_toolbox`/AMCL integration, dock-tag mapping, snapshots, and wheel/IMU odometry |
-| `team_planning` | Mission adapter, dock occupancy, autonomous exploration, and camera coverage |
-| `team_control` | Nav2 coordinator, docking adapter, collision-safe escape, and hardware command handling |
-| `team_control_docking` | Open Navigation docking plugin for tag-relative non-charging docks |
-| `team_control_mppi_critic` | Prediction-aware MPPI critic plugin |
-| `team_perception` | Detector adapters, multi-cue ranging, tracking, prediction, and dock-state inference |
-| `team_sim` | Multi-robot simulation and evaluation code; requires an external robot simulation package |
+| [`team_interfaces`](team_interfaces/README.md) | Shared messages for missions, docks, predictions, health, trajectories, and coordination |
+| [`team_slam`](team_slam/README.md) | `slam_toolbox`/AMCL integration, dock-tag mapping, snapshots, and wheel/IMU odometry |
+| [`team_planning`](team_planning/README.md) | Mission adapter, dock occupancy, autonomous exploration, and camera coverage |
+| [`team_control`](team_control/README.md) | Nav2 coordinator, docking adapter, collision-safe escape, and hardware command handling |
+| [`team_control_docking`](team_control_docking/README.md) | Open Navigation docking plugin for tag-relative non-charging docks |
+| [`team_control_mppi_critic`](team_control_mppi_critic/README.md) | Prediction-aware MPPI critic plugin |
+| [`team_perception`](team_perception/README.md) | Detector adapters, multi-cue ranging, tracking, prediction, and dock-state inference |
+| [`team_sim`](team_sim/README.md) | Multi-robot simulation and evaluation code; requires an external robot simulation package |
 
 ## Supported environment
 
@@ -48,18 +48,18 @@ cd ~/team_ws
 source /opt/ros/jazzy/setup.bash
 export PYTHONNOUSERSITE=1
 rosdep install --from-paths \
-  src/team-autonomy-stack/src/team_interfaces \
-  src/team-autonomy-stack/src/team_slam \
-  src/team-autonomy-stack/src/team_planning \
-  src/team-autonomy-stack/src/team_control \
-  src/team-autonomy-stack/src/team_control_docking \
-  src/team-autonomy-stack/src/team_control_mppi_critic \
-  src/team-autonomy-stack/src/team_perception \
+  src/team-autonomy-stack/team_interfaces \
+  src/team-autonomy-stack/team_slam \
+  src/team-autonomy-stack/team_planning \
+  src/team-autonomy-stack/team_control \
+  src/team-autonomy-stack/team_control_docking \
+  src/team-autonomy-stack/team_control_mppi_critic \
+  src/team-autonomy-stack/team_perception \
   src/team-autonomy-stack/vendor_src/m-explore-ros2/explore \
   src/team-autonomy-stack/vendor_src/m-explore-ros2/explore_lite_msgs \
   --ignore-src -r -y
 colcon build --symlink-install \
-  --base-paths src/team-autonomy-stack/src src/team-autonomy-stack/vendor_src \
+  --base-paths src/team-autonomy-stack \
   --packages-up-to team_interfaces team_slam team_planning team_control \
     team_control_docking team_control_mppi_critic team_perception explore_lite
 ```
