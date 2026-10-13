@@ -1,0 +1,5 @@
+<library path="team_tag_dock">
+  <class type="team_control::TagDock" base_class_type="opennav_docking_core::ChargingDock">
+    <description>Installed non-charging dock with per-ID live tag topic and heading/lateral acceptance.</description>
+  </class>
+</library>
