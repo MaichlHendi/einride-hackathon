@@ -13,7 +13,7 @@ if printf '%s\n' "$tracked" | grep -E '(^|/)(build|install|log|data|results|bags
 fi
 
 if git grep -n -I -E '/home/[^/]+|BEGIN [A-Z ]*PRIVATE KEY|Bearer [A-Za-z0-9_.-]{12,}|(password|token)[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_.-]{12,}' -- . \
-  ':!tools/publication_audit.sh' ':!SECURITY.md'; then
+  ':!tools/publication_audit.sh'; then
   echo 'FAIL: possible local path or embedded credential found.' >&2
   failed=1
 fi

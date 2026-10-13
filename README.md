@@ -101,7 +101,7 @@ the physical velocity command topic.
 All physical values are ROS parameters with units and comments in `config/`.
 Credentials are accepted only through runtime environment variables. Do not put
 tokens, passwords, model files, maps, snapshots, or recordings in this repository.
-See [SECURITY.md](SECURITY.md) before publishing or deploying.
+Run `./tools/publication_audit.sh` before publishing or deploying.
 
 ## License
 
