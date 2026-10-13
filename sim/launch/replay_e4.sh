@@ -2,7 +2,7 @@
 # Viewer-only replay. No control, Saga, or simulator processes are launched.
 set -e
 sim_repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)
-workspace=$(cd -- "$sim_repo/../.." && pwd)
+workspace=$(cd -- "$sim_repo/.." && pwd)
 if [[ $# -ne 1 || ! -f "$1/metadata.yaml" ]]; then
   printf 'Usage: %s /absolute/path/to/run_000/bag\n' "$0" >&2
   exit 1
@@ -23,4 +23,4 @@ bridge_pid=$!
 trap 'kill -INT "$bridge_pid" 2>/dev/null || true; wait "$bridge_pid" 2>/dev/null || true' EXIT
 printf 'Connect Foxglove to ws://localhost:8765. Space pauses/resumes in this terminal.\n'
 # --clock supplies replay time; exclude recorded /clock to avoid two time sources.
-ros2 bag play "$bag" --clock --start-paused --exclude-topics /clock /cmd_vel /traffic_1/cmd_vel /traffic_2/cmd_vel /traffic_3/cmd_vel --qos-profile-overrides-path "$sim_repo/team_sim/config/replay_qos.yaml"
+ros2 bag play "$bag" --clock --start-paused --exclude-topics /clock /cmd_vel /traffic_1/cmd_vel /traffic_2/cmd_vel /traffic_3/cmd_vel --qos-profile-overrides-path "$sim_repo/sim/config/replay_qos.yaml"

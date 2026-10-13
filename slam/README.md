@@ -1,4 +1,4 @@
-# team_slam
+# SLAM and localization
 
 Mapping and localization integration for ROS 2. Mapping uses `slam_toolbox`;
 saved-map localization uses Nav2 AMCL and map server. The package also estimates

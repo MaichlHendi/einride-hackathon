@@ -1,4 +1,4 @@
-# team_control_docking
+# Docking control plugin
 
 C++ Open Navigation docking plugin for tag-relative, non-charging docks. The
 `team_control::TagDock` plugin selects live tag observations and applies lateral,

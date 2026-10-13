@@ -2,7 +2,7 @@
 # Launch Gazebo GUI + all production nodes + 3 traffic robots + Foxglove bridge.
 set -e
 sim_repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)
-workspace=$(cd -- "$sim_repo/../.." && pwd)
+workspace=$(cd -- "$sim_repo/.." && pwd)
 source /opt/ros/jazzy/setup.bash
 export PATH=/usr/bin:/bin:$PATH
 source "$workspace/install/setup.bash"
@@ -14,5 +14,5 @@ if [[ ! -f "$snapshot" ]]; then
 fi
 output="$sim_repo/data/watch_$(date +%Y%m%d_%H%M%S)"
 exec ros2 run team_sim sim_experiment_node --workspace "$workspace" \
-  --scenario "$sim_repo/team_sim/config/e4.yaml" --output-dir "$output" \
+  --scenario "$sim_repo/sim/config/e4.yaml" --output-dir "$output" \
   --ros-args -p headless:=false -p foxglove:=true -p map_snapshot:="$snapshot"

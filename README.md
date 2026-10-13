@@ -13,14 +13,18 @@ recordings, build products, or internal team logs.
 
 | Package | Purpose |
 |---|---|
-| [`team_interfaces`](team_interfaces/README.md) | Shared messages for missions, docks, predictions, health, trajectories, and coordination |
-| [`team_slam`](team_slam/README.md) | `slam_toolbox`/AMCL integration, dock-tag mapping, snapshots, and wheel/IMU odometry |
-| [`team_planning`](team_planning/README.md) | Mission adapter, dock occupancy, autonomous exploration, and camera coverage |
-| [`team_control`](team_control/README.md) | Nav2 coordinator, docking adapter, collision-safe escape, and hardware command handling |
-| [`team_control_docking`](team_control_docking/README.md) | Open Navigation docking plugin for tag-relative non-charging docks |
-| [`team_control_mppi_critic`](team_control_mppi_critic/README.md) | Prediction-aware MPPI critic plugin |
-| [`team_perception`](team_perception/README.md) | Detector adapters, multi-cue ranging, tracking, prediction, and dock-state inference |
-| [`team_sim`](team_sim/README.md) | Multi-robot simulation and evaluation code; requires an external robot simulation package |
+| [`interfaces`](interfaces/README.md) | Shared messages for missions, docks, predictions, health, trajectories, and coordination |
+| [`slam`](slam/README.md) | `slam_toolbox`/AMCL integration, dock-tag mapping, snapshots, and wheel/IMU odometry |
+| [`planning`](planning/README.md) | Mission adapter, dock occupancy, autonomous exploration, and camera coverage |
+| [`control`](control/README.md) | Nav2 coordinator, docking adapter, collision-safe escape, and hardware command handling |
+| [`control_docking`](control_docking/README.md) | Open Navigation docking plugin for tag-relative non-charging docks |
+| [`control_mppi_critic`](control_mppi_critic/README.md) | Prediction-aware MPPI critic plugin |
+| [`perception`](perception/README.md) | Detector adapters, multi-cue ranging, tracking, prediction, and dock-state inference |
+| [`sim`](sim/README.md) | Multi-robot simulation and evaluation code; requires an external robot simulation package |
+
+The folder names are concise. Existing ROS package and Python module identifiers
+retain their `team_` prefix so recorded bags, launch files, plugins, and message
+imports remain compatible.
 
 ## Supported environment
 
@@ -30,7 +34,7 @@ recordings, build products, or internal team logs.
 - Gazebo Harmonic
 - Python 3.12
 
-The core packages use standard ROS 2 and Nav2 interfaces. `team_sim` and the
+The core packages use standard ROS 2 and Nav2 interfaces. The simulation and
 hardware launch profile are integration adapters: users must provide their own
 robot description, Gazebo bringup, sensor drivers, mission service, and model
 files. Those dependencies are deliberately not included here.
@@ -48,13 +52,13 @@ cd ~/team_ws
 source /opt/ros/jazzy/setup.bash
 export PYTHONNOUSERSITE=1
 rosdep install --from-paths \
-  src/team-autonomy-stack/team_interfaces \
-  src/team-autonomy-stack/team_slam \
-  src/team-autonomy-stack/team_planning \
-  src/team-autonomy-stack/team_control \
-  src/team-autonomy-stack/team_control_docking \
-  src/team-autonomy-stack/team_control_mppi_critic \
-  src/team-autonomy-stack/team_perception \
+  src/team-autonomy-stack/interfaces \
+  src/team-autonomy-stack/slam \
+  src/team-autonomy-stack/planning \
+  src/team-autonomy-stack/control \
+  src/team-autonomy-stack/control_docking \
+  src/team-autonomy-stack/control_mppi_critic \
+  src/team-autonomy-stack/perception \
   src/team-autonomy-stack/vendor_src/m-explore-ros2/explore \
   src/team-autonomy-stack/vendor_src/m-explore-ros2/explore_lite_msgs \
   --ignore-src -r -y
@@ -64,7 +68,7 @@ colcon build --symlink-install \
     team_control_docking team_control_mppi_critic team_perception explore_lite
 ```
 
-`team_sim` is skipped in the public core build because its robot model and
+The `sim` package is skipped in the public core build because its robot model and
 bringup packages are external. Build it after supplying equivalent integration
 packages and adapting its launch and model references to your platform.
 
@@ -86,7 +90,7 @@ from overriding the Python libraries supplied with ROS 2 and Ubuntu.
 
 The autonomy packages consume standard ROS lidar, RGB/depth image, camera-info,
 joint-state, IMU, odometry, occupancy-grid, TF, and Nav2 interfaces. The optional
-`team_sim` adapter requires a separately supplied robot description and simulator
+simulation adapter requires a separately supplied robot description and simulator
 bringup. Its package manifest, world launch, model resolver, and truth entity names
 must be adapted to a different robot.
 

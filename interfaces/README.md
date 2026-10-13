@@ -1,4 +1,4 @@
-# team_interfaces
+# Interfaces
 
 Shared ROS 2 messages used by the autonomy stack. The package defines perception
 predictions and health, dock maps and occupancy, planned trajectories,

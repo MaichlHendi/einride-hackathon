@@ -1,4 +1,4 @@
-# team_planning
+# Planning
 
 Mission and exploration planning around standard Nav2. It sends mission dock
 targets to `NavigateToPose`, evaluates dock occupancy, coordinates autonomous

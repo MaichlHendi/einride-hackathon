@@ -1,4 +1,4 @@
-# team_control
+# Control
 
 Nav2 control coordination and safety adapters. The package connects mission
 goals to Nav2, handles docking actions, compensates hardware velocity deadbands,

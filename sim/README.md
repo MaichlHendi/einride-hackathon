@@ -1,4 +1,4 @@
-# team_sim
+# Simulation and evaluation
 
 Multi-robot Gazebo simulation and evaluation harness. It creates traffic robots,
 publishes ground-truth poses for evaluation, emulates detections, records bags,

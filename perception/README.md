@@ -1,4 +1,4 @@
-# team_perception
+# Perception
 
 Robot detection, distance estimation, tracking, trajectory prediction, and dock
 occupancy inference. Detector backends support TensorRT and ONNX Runtime while
