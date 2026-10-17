@@ -5,6 +5,17 @@ It combines mapping and localization, mission planning,
 camera/lidar perception, Nav2 control, docking, collision-safe escape behavior,
 shared ROS interfaces, and a multi-robot evaluation harness.
 
+## Demo
+
+<p align="center">
+  <img src="demo.gif" alt="Autonomous robot replanning around another moving robot using predicted motion" width="960">
+</p>
+
+<p align="center"><em>
+Prediction-aware avoidance in simulation: the robot predicts the other robot's
+motion, updates its global path, and follows the safer route around it.
+</em></p>
+
 The export is intentionally source-only. It contains no robot-vendor source,
 mission-server source, credentials, trained models, maps, ROS bags, experiment
 recordings, build products, or internal development logs.
