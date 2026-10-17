@@ -1,13 +1,13 @@
-# Team Autonomy Stack
+# Autonomy Stack
 
-This repository contains the ROS 2 software written by our team for an autonomous
-mobile-robot project. It combines mapping and localization, mission planning,
+This repository contains ROS 2 software for an autonomous mobile-robot project.
+It combines mapping and localization, mission planning,
 camera/lidar perception, Nav2 control, docking, collision-safe escape behavior,
 shared ROS interfaces, and a multi-robot evaluation harness.
 
 The export is intentionally source-only. It contains no robot-vendor source,
 mission-server source, credentials, trained models, maps, ROS bags, experiment
-recordings, build products, or internal team logs.
+recordings, build products, or internal development logs.
 
 ## Packages
 
@@ -21,10 +21,6 @@ recordings, build products, or internal team logs.
 | [`control_mppi_critic`](control_mppi_critic/README.md) | Prediction-aware MPPI critic plugin |
 | [`perception`](perception/README.md) | Detector adapters, multi-cue ranging, tracking, prediction, and dock-state inference |
 | [`sim`](sim/README.md) | Multi-robot simulation and evaluation code; requires an external robot simulation package |
-
-The folder names are concise. Existing ROS package and Python module identifiers
-retain their `team_` prefix so recorded bags, launch files, plugins, and message
-imports remain compatible.
 
 ## Supported environment
 
@@ -42,30 +38,30 @@ files. Those dependencies are deliberately not included here.
 ## Build
 
 ```bash
-mkdir -p ~/team_ws/src
-cd ~/team_ws/src
-git clone YOUR_GITHUB_URL team-autonomy-stack
-cd team-autonomy-stack
+mkdir -p ~/autonomy_ws/src
+cd ~/autonomy_ws/src
+git clone YOUR_GITHUB_URL einride-hackathon
+cd einride-hackathon
 ./tools/fetch_dependencies.sh
 
-cd ~/team_ws
+cd ~/autonomy_ws
 source /opt/ros/jazzy/setup.bash
 export PYTHONNOUSERSITE=1
 rosdep install --from-paths \
-  src/team-autonomy-stack/interfaces \
-  src/team-autonomy-stack/slam \
-  src/team-autonomy-stack/planning \
-  src/team-autonomy-stack/control \
-  src/team-autonomy-stack/control_docking \
-  src/team-autonomy-stack/control_mppi_critic \
-  src/team-autonomy-stack/perception \
-  src/team-autonomy-stack/vendor_src/m-explore-ros2/explore \
-  src/team-autonomy-stack/vendor_src/m-explore-ros2/explore_lite_msgs \
+  src/einride-hackathon/interfaces \
+  src/einride-hackathon/slam \
+  src/einride-hackathon/planning \
+  src/einride-hackathon/control \
+  src/einride-hackathon/control_docking \
+  src/einride-hackathon/control_mppi_critic \
+  src/einride-hackathon/perception \
+  src/einride-hackathon/vendor_src/m-explore-ros2/explore \
+  src/einride-hackathon/vendor_src/m-explore-ros2/explore_lite_msgs \
   --ignore-src -r -y
 colcon build --symlink-install \
-  --base-paths src/team-autonomy-stack \
-  --packages-up-to team_interfaces team_slam team_planning team_control \
-    team_control_docking team_control_mppi_critic team_perception explore_lite
+  --base-paths src/einride-hackathon \
+  --packages-up-to interfaces slam planning control \
+    control_docking control_mppi_critic perception explore_lite
 ```
 
 The `sim` package is skipped in the public core build because its robot model and
@@ -77,9 +73,9 @@ packages and adapting its launch and model references to your platform.
 ```bash
 source /opt/ros/jazzy/setup.bash
 export PYTHONNOUSERSITE=1
-source ~/team_ws/install/setup.bash
-colcon test --packages-select team_interfaces team_slam team_planning team_control \
-  team_control_docking team_control_mppi_critic team_perception
+source ~/autonomy_ws/install/setup.bash
+colcon test --packages-select interfaces slam planning control \
+  control_docking control_mppi_critic perception
 colcon test-result --verbose
 ```
 
@@ -95,7 +91,7 @@ bringup. Its package manifest, world launch, model resolver, and truth entity na
 must be adapted to a different robot.
 
 The mission service remains behind a small HTTP adapter. Supply a compatible
-external service with `--mission-source` or `TEAM_MISSION_SOURCE`, or replace the
+external service with `--mission-source` or `AUTONOMY_MISSION_SOURCE`, or replace the
 adapter with manual goals. Hardware parameters are examples and must be measured
 on the target platform. The collision monitor must remain the final publisher to
 the physical velocity command topic.
@@ -109,5 +105,5 @@ Run `./tools/publication_audit.sh` before publishing or deploying.
 
 ## License
 
-Team-authored source in this export is licensed under Apache License 2.0. External
+Project source in this export is licensed under Apache License 2.0. External
 dependencies retain their own licenses and are fetched separately.

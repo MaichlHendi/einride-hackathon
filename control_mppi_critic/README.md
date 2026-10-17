@@ -8,6 +8,6 @@ The plugin declaration is in `critics.xml`; parameters are configured through
 `control/config/control.yaml`.
 
 ```bash
-colcon build --packages-select team_control_mppi_critic
-colcon test --packages-select team_control_mppi_critic
+colcon build --packages-select control_mppi_critic
+colcon test --packages-select control_mppi_critic
 ```

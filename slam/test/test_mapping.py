@@ -2,8 +2,8 @@ import json
 import numpy as np
 import cv2
 import pytest
-from team_slam.landmarks import detect_tags
-from team_slam.snapshot import sanitise_ranges,load_snapshot,fuse_landmark
+from slam.landmarks import detect_tags
+from slam.snapshot import sanitise_ranges,load_snapshot,fuse_landmark
 
 
 def test_invalid_bins_never_become_clearing_rays():
@@ -42,7 +42,7 @@ def test_dock_fusion_replaces_bad_seed_but_rejects_confirmed_outlier():
 
 
 def test_range_incidence_uncertainty_and_partial_snapshot(tmp_path):
-    from team_slam.snapshot import tag_covariance,landmark_valid
+    from slam.snapshot import tag_covariance,landmark_valid
     p=dict(tag_sigma=.08,tag_yaw_sigma=.12,tag_reference_range=1.,tag_min_cosine=.1,
            tag_min_observations=3,tag_geometry_covariance=True,dock_max_position_variance=.01,dock_max_yaw_variance=.04)
     near,yaw=tag_covariance(.9,0.,p)
@@ -57,7 +57,7 @@ def test_range_incidence_uncertainty_and_partial_snapshot(tmp_path):
 
 def test_real_slam_node_initializes_live_dock_topics():
     import rclpy
-    from team_slam.slam_node import SlamNode
+    from slam.slam_node import SlamNode
     rclpy.init();node=SlamNode()
     try:
         assert set(p.topic_name for p in node.live_docks.values())=={f'/slam/live_docks/dock_{i}' for i in range(8)}
@@ -69,7 +69,7 @@ def test_camera_waits_for_capture_time_tf_instead_of_dropping_early_frame():
     from rclpy.task import Future
     from sensor_msgs.msg import Image,CameraInfo
     from geometry_msgs.msg import TransformStamped
-    from team_slam.slam_node import SlamNode
+    from slam.slam_node import SlamNode
     rclpy.init();node=SlamNode()
     try:
         f=Future();node.buffer.wait_for_transform_async=lambda *a:f

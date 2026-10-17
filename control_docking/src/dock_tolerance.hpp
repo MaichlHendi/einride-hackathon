@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-namespace team_control {
+namespace control {
 inline bool withinDockTolerance(double dx,double dy,double dock_yaw,double yaw_error,
     double longitudinal,double lateral,double heading) {
   return std::abs(std::cos(dock_yaw)*dx+std::sin(dock_yaw)*dy)<longitudinal &&

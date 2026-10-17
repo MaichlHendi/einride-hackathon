@@ -6,11 +6,11 @@ from pathlib import Path
 import rclpy
 import yaml
 from ament_index_python.packages import get_package_share_directory
-from team_perception.skeleton_node import SkeletonNode
+from perception.skeleton_node import SkeletonNode
 
 
 def test_installed_launch_and_sim_clock():
-    share = Path(get_package_share_directory('team_perception'))
+    share = Path(get_package_share_directory('perception'))
     params = yaml.safe_load((share / 'config/perception.yaml').read_text())['/**']['ros__parameters']
     assert params['use_sim_time'] is True
     spec = importlib.util.spec_from_file_location('area_launch', share / 'launch/perception.launch.py')

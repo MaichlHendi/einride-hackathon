@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Owner's E4 acceptance: progress, commanded-motion contacts and unbroken holds.
+"""E4 acceptance: progress, commanded-motion contacts and unbroken holds.
 
 A new ladder label cannot reset a physical zero-command interval. This audit
 uses final guarded /cmd_vel, including rotation, and the capture-stamped contact.
@@ -53,10 +53,10 @@ def check(directory,standard_nav2=False):
         count=m['calibration_samples'] if category=='all' else m.get(prefix+'samples',0)
         coverage[category]={'samples':int(count),'inside_1sigma':float(a) if a!='' else None,'inside_2sigma':float(b) if b!='' else None,'target_met':bool(a!='' and b!='' and .25<=float(a)<=.55 and float(b)>=.75)}
     report={'passed':not reasons,'failures':reasons,'command_and_wait_audit':audit,'encounter_phase_samples':phases,'calibration':coverage,'note':'Detection/coasting is frame-level using latest processed camera receipt; not per-track detector recall. Calibration targets are reported separately from navigation acceptance.'}
-    report['acceptance_policy']='Owner standard-Nav2 v1: full duration, ego route, no commanded-motion contact' if standard_nav2 else 'Original encounter ladder including 15 s hold limit'
+    report['acceptance_policy']='Standard-Nav2 v1: full duration, ego route, no commanded-motion contact' if standard_nav2 else 'Original encounter ladder including 15 s hold limit'
     (p/'encounter_check.json').write_text(json.dumps(report,indent=2)+'\n');return report
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('directory');parser.add_argument('--standard-nav2',action='store_true',help='Use the superseding owner acceptance; still report continuous hold duration');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('directory');parser.add_argument('--standard-nav2',action='store_true',help='Use the standard-Nav2 acceptance; still report continuous hold duration');args=parser.parse_args()
     report=check(args.directory,args.standard_nav2);print(json.dumps(report,indent=2));raise SystemExit(0 if report['passed'] else 1)

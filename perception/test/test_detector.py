@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from team_perception.detector import letterbox, boxes_from_output, OUTPUT_SHAPE
+from perception.detector import letterbox, boxes_from_output, OUTPUT_SHAPE
 
 
 def test_letterbox_rgb_and_nms_return_original_pixels():

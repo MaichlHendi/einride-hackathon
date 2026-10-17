@@ -1,4 +1,4 @@
-# Task 3 attempt 2+: fix initial overlap with accepted E0_4 physical handover.
+# Ignore-traffic admission scenario with a collision-free initial handover.
 parameters:
   stack_stage: E4
   map_source: snapshot

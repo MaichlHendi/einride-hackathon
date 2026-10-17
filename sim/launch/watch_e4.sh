@@ -13,6 +13,6 @@ if [[ ! -f "$snapshot" ]]; then
   exit 1
 fi
 output="$workspace/runs/watch_$(date +%Y%m%d_%H%M%S)"
-exec ros2 run team_sim sim_experiment_node --workspace "$workspace" \
+exec ros2 run sim sim_experiment_node --workspace "$workspace" \
   --scenario "$sim_repo/sim/config/e4.yaml" --output-dir "$output" \
   --ros-args -p headless:=false -p foxglove:=true -p map_snapshot:="$snapshot"

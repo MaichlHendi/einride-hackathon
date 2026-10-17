@@ -1,6 +1,6 @@
 import socket
 import pytest
-from team_sim.network import assert_port_available
+from sim.network import assert_port_available
 
 
 def test_active_listener_is_rejected():

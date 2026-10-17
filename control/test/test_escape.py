@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import pytest
-from team_control.escape import pivot,clearance,front_clearance,swept_clear
+from control.escape import pivot,clearance,front_clearance,swept_clear
 
 
 def test_single_track_pivot_inverse_kinematics():

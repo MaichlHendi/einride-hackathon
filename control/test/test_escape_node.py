@@ -3,7 +3,7 @@ import rclpy
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Bool
-from team_control.escape_node import EscapeNode
+from control.escape_node import EscapeNode
 
 
 def test_revoked_goal_restores_approach_without_escape_motion():

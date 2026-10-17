@@ -1,6 +1,6 @@
 import numpy as np
 from nav_msgs.msg import OccupancyGrid
-from team_planning.dock_occupancy import dynamic_points,occupied,standoff,DockAdmission
+from planning.dock_occupancy import dynamic_points,occupied,standoff,DockAdmission
 
 
 def grid(raw,origin=(-2.,-2.)):
@@ -48,7 +48,7 @@ def test_standoff_uses_clear_side_outside_exit_corridor():
 def test_only_recent_camera_confirmed_precise_mixture_claims_occupancy():
     from types import SimpleNamespace as NS
     from builtin_interfaces.msg import Time,Duration
-    from team_planning.dock_occupancy import confirmed_track_points
+    from planning.dock_occupancy import confirmed_track_points
     group=NS(probability=1.,points=[NS(x=.1,y=.1,covariance=[.01,0.,0.,.01])])
     robot=NS(track_id=0,ever_confirmed=False,confirmation_age=Duration(),groups=[],leftover=group)
     prediction=NS(robots=[robot]);receipts=NS(detections=[NS(id='0',header=NS(stamp=Time(sec=1)))])
@@ -69,7 +69,7 @@ def test_only_recent_camera_confirmed_precise_mixture_claims_occupancy():
 
 
 def test_costmap_source_attribution_does_not_invent_persistent_provenance():
-    from team_planning.dock_occupancy import costmap_cues
+    from planning.dock_occupancy import costmap_cues
     points=np.array([[.05,.05]])
     sources={'lidar':(1.,points.copy()),'depth':(1.,points.copy())}
     assert costmap_cues(points,[0,0],.5,sources,1.1,1.,.04)==['costmap_lidar','costmap_depth']

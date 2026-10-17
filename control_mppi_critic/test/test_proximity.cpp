@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
-#include "team_control_mppi_critic/proximity.hpp"
+#include "control_mppi_critic/proximity.hpp"
 TEST(PredictionProximity, BroadSupportRemainsWeakButReal) {
-  using team_control::proximity;
+  using control::proximity;
   const auto sharp=proximity(0,0,.01,0,.01,.536,1e-6);
   const auto broad=proximity(0,0,4,0,4,.536,1e-6);
   EXPECT_GT(sharp,broad);EXPECT_GT(broad,0.);

@@ -2,7 +2,7 @@ import math
 from pathlib import Path
 import pytest
 import yaml
-from team_slam.wheel_odometry import WheelOdometry, integrate_arc
+from slam.wheel_odometry import WheelOdometry, integrate_arc
 
 
 def parameters():

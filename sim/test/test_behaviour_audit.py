@@ -1,7 +1,7 @@
 """Acceptance audit must not manufacture LOOK benefit from an older risk sample."""
 from types import SimpleNamespace as N
 import behaviour_audit
-from team_interfaces.msg import CoordinatorRequest,CoordinatorStatus
+from interfaces.msg import CoordinatorRequest,CoordinatorStatus
 
 
 def test_receipt_and_request_tick_risk(monkeypatch):

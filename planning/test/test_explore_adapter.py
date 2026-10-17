@@ -1,6 +1,6 @@
 from types import SimpleNamespace as NS
 from rclpy.task import Future
-from team_planning.explore_adapter import ExploreAdapter
+from planning.explore_adapter import ExploreAdapter
 
 class Handle:
     is_active=True
@@ -29,7 +29,7 @@ def test_real_action_result_failure_reaches_explore_client():
     from rclpy.action import ActionClient
     from nav2_msgs.action import NavigateToPose
     from action_msgs.msg import GoalStatus
-    from team_interfaces.msg import CoordinatorStatus
+    from interfaces.msg import CoordinatorStatus
     rclpy.init()
     node=Node('explore_bridge_test');node.request=None;node.status=None
     node.p=lambda key:True;node.now=lambda:0.

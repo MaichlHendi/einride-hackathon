@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>team_interfaces</name><version>0.1.0</version>
+  <name>interfaces</name><version>0.1.0</version>
   <description>Shared autonomy, perception, planning, control, and simulation interfaces</description>
   <maintainer email="maintainers@example.invalid">Project contributors</maintainer>
   <license>Apache-2.0</license>

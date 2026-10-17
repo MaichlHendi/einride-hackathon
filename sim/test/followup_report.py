@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read a completed TEAM comparison once; retain acceptance, LOOK and log evidence."""
+"""Read a completed evaluation comparison once; retain acceptance, LOOK and log evidence."""
 import argparse,json,re
 from pathlib import Path
 import yaml

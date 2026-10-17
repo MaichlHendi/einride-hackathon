@@ -2,12 +2,12 @@
 """Isolated domain-95 regression: actual DockMap delivery for IDs 32 and 33."""
 import os,sys,time,json,subprocess
 from pathlib import Path
-out=Path(os.environ.get('TEAM_DISCOVERY_PROBE_OUTPUT','/tmp/team_discovery_probe'));out.mkdir(parents=True,exist_ok=True)
+out=Path(os.environ.get('AUTONOMY_DISCOVERY_PROBE_OUTPUT','/tmp/autonomy_discovery_probe'));out.mkdir(parents=True,exist_ok=True)
 if len(sys.argv)>1:
  import rclpy
  from rclpy.parameter import Parameter
  from rclpy.qos import QoSProfile,DurabilityPolicy
- from team_interfaces.msg import DockMap
+ from interfaces.msg import DockMap
  rclpy.init();n=rclpy.create_node('discovery_'+sys.argv[1],parameter_overrides=[Parameter('use_sim_time',value=True)])
  received=[];q=QoSProfile(depth=1,durability=DurabilityPolicy.TRANSIENT_LOCAL)
  if sys.argv[1]=='pub':p=n.create_publisher(DockMap,'/probe/docks',q)
@@ -27,7 +27,7 @@ for fixed in (False,True):
    peers='<builtin><initialPeersList>'+''.join(f'<locator><udpv4><address>127.0.0.1</address><port>{7400+250*95+10+2*i}</port></udpv4></locator>' for i in (32,33))+'</initialPeersList></builtin>'
   xml=out/f'{fixed}_{role}.xml'
   if fixed:
-   from team_sim.discovery import write_discovery_profile
+   from sim.discovery import write_discovery_profile
    write_discovery_profile(xml,95,64)
    xml.write_text(xml.read_text().replace('</rtps>',f'<participantID>{ident}</participantID></rtps>'))
   else:

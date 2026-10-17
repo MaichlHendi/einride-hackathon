@@ -11,6 +11,6 @@ wheel/IMU odometry.
 - `launch/slam.launch.py`: package launch entry point.
 
 ```bash
-ros2 launch team_slam slam.launch.py
-colcon test --packages-select team_slam
+ros2 launch slam slam.launch.py
+colcon test --packages-select slam
 ```

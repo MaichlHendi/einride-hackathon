@@ -1,7 +1,7 @@
 from glob import glob
 from setuptools import find_packages, setup
 
-package_name = 'team_planning'
+package_name = 'planning'
 setup(
     name=package_name, version='0.1.0', packages=find_packages(exclude=['test']),
     data_files=[
@@ -15,8 +15,8 @@ setup(
     description='Mission planning, dock occupancy, exploration, and camera coverage', license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={'console_scripts': [
-        'planning_coverage_node = team_planning.coverage_node:main',
-        'planning_skeleton_node = team_planning.skeleton_node:main',
-        'planning_planning_node = team_planning.mission_node:main',
+        'planning_coverage_node = planning.coverage_node:main',
+        'planning_skeleton_node = planning.skeleton_node:main',
+        'planning_planning_node = planning.mission_node:main',
     ]},
 )

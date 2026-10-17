@@ -21,7 +21,7 @@ def check(stage,directory,look_evidence=None):
     planning=yaml.safe_load((p/'planning.yaml').read_text())['/**']['ros__parameters']
     report['integration_evidence']=audit(p,planning)
     if stage!='E0':
-        from team_slam.snapshot import load_snapshot
+        from slam.snapshot import load_snapshot
         snapshot=load_snapshot(params['map_snapshot'])
         initial=next((m for _,m,_ in messages(p,['/initialpose'])),None)
         assert initial is not None,'No automatic AMCL final-pose handover recorded'
@@ -36,7 +36,7 @@ def check(stage,directory,look_evidence=None):
         last=None
         for _,m,_ in messages(p,['/slam/docks']):last=m
         assert last is not None and last.ready and all(d.valid for d in last.docks),'All eight usable tags required'
-        from team_slam.snapshot import load_snapshot
+        from slam.snapshot import load_snapshot
         snapshot=load_snapshot(p/'slam_snapshot.json')
         assert (p/'sim_handover.json').is_file(),'Physical simulation handover missing'
         assert snapshot['backend']=='slam_toolbox'
@@ -81,7 +81,7 @@ def check(stage,directory,look_evidence=None):
             assert evidence['risk_decreased_after_look']>0,'No observed risk reduction after confirmed LOOK'
             assert evidence['drive_resumptions_after_confirmed_look']>0,'Never resumed DRIVE after a confirmed LOOK'
         else:
-            report['risk_look_coverage']='DISABLED by owner v1 decision; no LOOK acceptance claimed'
+            report['risk_look_coverage']='DISABLED by v1 configuration; no LOOK acceptance claimed'
         assert int(result['last_metrics']['routes_ego'])>0,'Empty-scene mission made no route progress'
     elif stage=='E4':
         assert result['duration_sim_s']>=params['duration']

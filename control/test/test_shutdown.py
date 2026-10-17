@@ -1,6 +1,6 @@
 """Real rclpy context teardown must not publish or invoke closed actions."""
 import rclpy
-from team_control.nav2_coordinator import Nav2Coordinator
+from control.nav2_coordinator import Nav2Coordinator
 
 def test_coordinator_teardown_after_context_shutdown():
     rclpy.init()

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>team_perception</name><version>0.1.0</version>
+  <name>perception</name><version>0.1.0</version>
   <description>Detector adapters, sensor fusion, tracking, prediction, and dock-state inference</description>
   <maintainer email="maintainers@example.invalid">Project contributors</maintainer>
   <license>Apache-2.0</license>
   <buildtool_depend>ament_python</buildtool_depend>
-  <exec_depend>rclpy</exec_depend><exec_depend>team_interfaces</exec_depend>
+  <exec_depend>rclpy</exec_depend><exec_depend>interfaces</exec_depend>
   <exec_depend>ament_index_python</exec_depend>
   <exec_depend>launch</exec_depend><exec_depend>launch_ros</exec_depend>
   <test_depend>python3-pytest</test_depend><test_depend>python3-yaml</test_depend>
@@ -17,7 +17,7 @@
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>team_planning</exec_depend>
+  <exec_depend>planning</exec_depend>
   <exec_depend>vision_msgs</exec_depend>
   <exec_depend>python3-opencv</exec_depend>
   <exec_depend>python3-yaml</exec_depend>

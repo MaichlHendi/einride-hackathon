@@ -1,4 +1,4 @@
-from team_control.coordinator import validate,turn_command
+from control.coordinator import validate,turn_command
 
 
 def test_requests_fail_closed():
@@ -20,7 +20,7 @@ def test_look_confirms_stopping_before_turn_and_completion():
 
 def test_raw_depth_projection_rejects_invalid_and_preserves_close_returns():
     import numpy as np
-    from team_control.depth import project_depth
+    from control.depth import project_depth
     k=[100.,0.,1.,0.,100.,1.,0.,0.,1.]
     p=project_depth(np.array([[.1,np.nan],[np.inf,2.]]),k,1,.05,8.)
     assert len(p)==2 and np.isfinite(p).all() and np.isclose(p[0,2],.1)

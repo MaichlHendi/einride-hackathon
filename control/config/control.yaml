@@ -67,7 +67,7 @@ controller_server:
       CostCritic:
         consider_footprint: true # Existing complete footprint collision scoring.
       PredictionCritic:
-        enabled: false # TEAM selected variant a after fewer ego/moving-command contacts.
+        enabled: false # Evaluation selected variant a after fewer ego/moving-command contacts.
         require_predictions: true
         cost_weight: 8.0 # PROVISIONAL [cost scale] Existing custom critic weight; no Nav2 default exists.
         robot_radius: 0.168 # [m] Existing footprint envelope.
@@ -141,7 +141,7 @@ collision_monitor:
       type: polygon
       action_type: approach
       footprint_topic: /local_costmap/published_footprint # Existing padded local-costmap footprint, unchanged.
-      time_before_collision: 1.2 # PROVISIONAL [s] Restore pre-trial horizon: conditional d achieved no route.
+      time_before_collision: 1.2 # PROVISIONAL [s] Simulation collision-prediction horizon.
       min_points: 1 # [points] Existing guard threshold, unchanged.
       visualize: true
       polygon_pub_topic: /control/stop_polygon # Preserve the existing visualization topic.

@@ -5,7 +5,7 @@
 #include "nav2_util/node_utils.hpp"
 #include "angles/angles.h"
 #include "pluginlib/class_list_macros.hpp"
-namespace team_control {
+namespace control {
 // Installed SimpleNonChargingDock supplies pose filtering/staging/detection.
 // Extension reason: upstream isDocked checks distance only, not dock-axis yaw;
 // its single fixed detection topic also cannot select between eight tag IDs.
@@ -39,4 +39,4 @@ class TagDock : public opennav_docking::SimpleNonChargingDock {
   double heading_tolerance_,lateral_tolerance_;
 };
 }
-PLUGINLIB_EXPORT_CLASS(team_control::TagDock,opennav_docking_core::ChargingDock)
+PLUGINLIB_EXPORT_CLASS(control::TagDock,opennav_docking_core::ChargingDock)

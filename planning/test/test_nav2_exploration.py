@@ -1,6 +1,6 @@
 import numpy as np
 from nav_msgs.msg import OccupancyGrid
-from team_planning.nav2_exploration import ExplorationMap
+from planning.nav2_exploration import ExplorationMap
 
 
 def arena():
@@ -25,8 +25,8 @@ def test_tag_view_uses_observed_tag_position_and_avoids_failed_view():
 
 def test_successful_nav2_frontier_advances_when_endpoint_was_tolerance_adjusted():
     from types import SimpleNamespace as NS
-    from team_planning.mission_node import MissionNode
-    from team_interfaces.msg import CoordinatorRequest,CoordinatorStatus
+    from planning.mission_node import MissionNode
+    from interfaces.msg import CoordinatorRequest,CoordinatorStatus
     node=MissionNode.__new__(MissionNode)
     node.explorer=None;node.exploration_target=np.array([1.,1.]);node.exploration_tag=None
     node.request=NS(request_id='done');node.status=NS(request_id='done',terminal=True,status=CoordinatorStatus.SUCCEEDED)

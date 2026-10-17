@@ -1,7 +1,7 @@
 from types import SimpleNamespace as N
 import numpy as np
 from nav_msgs.msg import OccupancyGrid
-from team_planning.planning_node import PlanningNode
+from planning.planning_node import PlanningNode
 
 
 def test_live_obstacle_wall_blocks_existing_astar_and_stale_map_is_rejected():

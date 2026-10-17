@@ -1,7 +1,7 @@
 from pathlib import Path
 import yaml
-from team_sim.traffic import yield_command,mode_command
-from team_sim.collision import CollisionMonitor
+from sim.traffic import yield_command,mode_command
+from sim.collision import CollisionMonitor
 
 
 def test_yield_front_all_robots_but_not_behind_or_ignore():
@@ -23,7 +23,7 @@ def test_evaluation_rectangle_covers_front_wheels_and_detects_old_gap():
 def test_detector_audit_separates_visible_miss_from_outside_view():
     import numpy as np
     from types import SimpleNamespace as N
-    from team_sim.detector import emulate
+    from sim.detector import emulate
     p=yaml.safe_load((Path(__file__).parents[1]/'config/sim.yaml').read_text())['/**']['ros__parameters']
     p['detector_miss_rate']=1.;pose=np.eye(4);pose[2,3]=2.
     audit=[]

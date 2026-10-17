@@ -6,7 +6,7 @@ from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
 from nav2_msgs.action import NavigateToPose
 from geometry_msgs.msg import PoseStamped
-from team_control.navigation_relay import NavigationRelay
+from control.navigation_relay import NavigationRelay
 
 
 def test_aborted_active_goal_replans_by_resubmitting_same_target():

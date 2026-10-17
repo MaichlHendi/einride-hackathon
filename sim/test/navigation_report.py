@@ -76,7 +76,7 @@ def report(directory,output):
         with (out/(p.parent.name+'_failures.csv')).open('w') as f:
             writer=csv.DictWriter(f,fieldnames=list(failures[0]));writer.writeheader();writer.writerows(failures)
     else:(out/(p.parent.name+'_failures.csv')).write_text('marker,sim_time,our_x,our_y,goal_id,goal_x,goal_y,nearest_traffic_m,dock_occupied,planner_returned_path,plan_age_s,standoff_active,behaviour\n')
-    lines=['| Marker | Sim s | Our position m | Current goal m | Nearest traffic m | Dock occupied | Path returned | Standoff |','|---|---:|---|---|---:|---|---|---|']
+    lines=['| Marker | Sim s | Ego position m | Current goal m | Nearest traffic m | Dock occupied | Path returned | Standoff |','|---|---:|---|---|---:|---|---|---|']
     def yn(v):return 'unknown' if v is None else 'yes' if v else 'no'
     def num(v):return 'unknown' if v is None else f'{v:.3f}'
     for r in failures:

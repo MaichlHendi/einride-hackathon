@@ -7,8 +7,8 @@ from rclpy.duration import Duration
 from rclpy.time import Time
 from tf2_ros import Buffer,TransformException
 from area_check import messages,seconds
-from team_sim.detector import transform
-from team_sim.detector_node import pose_matrix
+from sim.detector import transform
+from sim.detector_node import pose_matrix
 
 def report(bag,output):
  tf=Buffer(cache_time=Duration(seconds=10000));rows=[];last_pose=None

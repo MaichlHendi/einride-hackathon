@@ -10,4 +10,4 @@ uint64 map_revision
 uint64 dropped_tf # Measurements dropped since this process started [count].
 uint64 dropped_late # Measurements dropped since this process started [count].
 bool has_camera_observation
-team_interfaces/CameraObservation last_camera_observation
+interfaces/CameraObservation last_camera_observation

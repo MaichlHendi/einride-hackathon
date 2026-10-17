@@ -1,4 +1,4 @@
-# Team-selected slam_toolbox -> AMCL, 2026-10-06. Numerical tuning is PROVISIONAL.
+# Selected slam_toolbox -> AMCL, 2026-10-06. Numerical tuning is PROVISIONAL.
 /**:
   ros__parameters:
     use_sim_time: true

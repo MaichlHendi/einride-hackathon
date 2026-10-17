@@ -13,11 +13,11 @@ from sensor_msgs_py.point_cloud2 import read_points_numpy
 from scipy.spatial.transform import Rotation
 from scipy.optimize import linear_sum_assignment
 from area_check import messages,seconds
-from team_perception.measurements import camera_cues
-from team_perception.perception_node import image_array
-from team_sim.detector import project_box,transform
-from team_sim.history import PoseHistory
-from team_sim.detector_node import pose_matrix
+from perception.measurements import camera_cues
+from perception.perception_node import image_array
+from sim.detector import project_box,transform
+from sim.history import PoseHistory
+from sim.detector_node import pose_matrix
 
 
 def report(directory,output,replay=None):
@@ -86,7 +86,7 @@ def report(directory,output,replay=None):
   errors=[r[cue+'_error_m'] for r in rows if r[cue+'_error_m'] is not None]
   summary['cues'][cue]={'samples':len(errors),'position_rmse_m':float(np.sqrt(np.mean(np.square(errors)))) if errors else None,'median_error_m':float(np.median(errors)) if errors else None}
  if replay:
-  from team_interfaces.msg import Predictions
+  from interfaces.msg import Predictions
   from rosidl_runtime_py.set_message import set_message_fields
   predictions=[]
   for value in json.loads(Path(replay).read_text()):

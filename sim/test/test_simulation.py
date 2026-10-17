@@ -6,15 +6,15 @@ import numpy as np
 import pytest
 import yaml
 from ament_index_python.packages import get_package_share_directory
-from team_sim.collision import CollisionMonitor
-from team_sim.geometry import rectangle, overlap, separation
-from team_sim.grid import Grid
-from team_sim.world import generate
-from team_sim.organiser import Organiser
-from team_sim.detector import project_box, emulate
-from team_sim.history import PoseHistory
-from team_sim.metrics import mixture_moments, ellipse_hits, interpolate_points, look_confirmed
-from team_sim.traffic import command
+from sim.collision import CollisionMonitor
+from sim.geometry import rectangle, overlap, separation
+from sim.grid import Grid
+from sim.world import generate
+from sim.organiser import Organiser
+from sim.detector import project_box, emulate
+from sim.history import PoseHistory
+from sim.metrics import mixture_moments, ellipse_hits, interpolate_points, look_confirmed
+from sim.traffic import command
 
 
 @pytest.fixture
@@ -170,7 +170,7 @@ def test_predictions_interpolate_absolute_times_never_extrapolate():
     assert interpolate_points(points,13) is None
 
 
-def test_look_owner_receipt_strict_order_and_applied_evidence():
+def test_look_receipt_strict_order_and_applied_evidence():
     assert look_confirmed(10,11,True,True,12)
     assert not look_confirmed(10,10,True,True,12)
     assert not look_confirmed(10,11,True,False,12)
@@ -187,13 +187,13 @@ def test_traffic_rotation_and_goal_hold():
 @pytest.mark.parametrize('status,expected', [('loading_pending','A'),('loading_in_progress','A'),
     ('loading_complete','B'),('unloading_in_progress','B')])
 def test_organiser_uses_correct_dock_after_loading(status,expected):
-    from team_sim.organiser import target_dock
+    from sim.organiser import target_dock
     assert target_dock({'source':'A','destination':'B','status':status})==expected
 
 
 def test_runner_ros_parameter_overrides_scenario_defaults(tmp_path):
     import rclpy
-    from team_sim.runner import ExperimentRunner
+    from sim.runner import ExperimentRunner
     rclpy.init(args=['--ros-args','-p','duration:=15.0'])
     node=ExperimentRunner({'parameters':{'duration':110.}},str(tmp_path),str(tmp_path))
     try:
@@ -204,12 +204,12 @@ def test_runner_ros_parameter_overrides_scenario_defaults(tmp_path):
 
 @pytest.mark.parametrize('mode,expected',[('ignore',(.4,.1)),('stop_near',(0.,0.)),('random_wander',(.4,.1))])
 def test_only_stop_near_reacts_to_ego(mode,expected):
-    from team_sim.traffic import mode_command
+    from sim.traffic import mode_command
     assert mode_command(mode,(.4,.1),(0,0,0),(.1,0,0),.6)==expected
 
 
 def test_saga_http_200_can_still_mean_button_rejected():
-    from team_sim.saga_client import SagaClient
+    from sim.saga_client import SagaClient
     class Response:
         headers={'HX-Trigger':'{"saga-error":"wait before confirming"}'}
         def raise_for_status(self):

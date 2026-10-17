@@ -2,8 +2,8 @@
 import numpy as np
 import rclpy
 from sensor_msgs.msg import Image
-from team_perception.perception_node import image_array
-from team_perception import detector_node
+from perception.perception_node import image_array
+from perception import detector_node
 
 
 def test_depth_mm_and_float_m_are_equivalent():

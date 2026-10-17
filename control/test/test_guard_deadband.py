@@ -1,6 +1,6 @@
 import math
 import pytest
-from team_control.guard_deadband import candidate,executable
+from control.guard_deadband import candidate,executable
 
 
 @pytest.mark.parametrize('v,w,expected',[(0.,0.,(0.,0.)),(.1,.2,(.15,.3)),(-.1,-.2,(-.15,-.3)),(0.,.2,(0.,.35)),(0.,-.2,(0.,-.35)),(.2,.05,(.2,.05)),(math.nan,0.,(0.,0.))])
@@ -14,7 +14,7 @@ def test_final_gate_cannot_raise_a_checked_command(v,w,valid):
 
 
 def test_both_checks_retain_identical_stop_approach_and_sources():
-    from team_control.guard_configuration import executable_guard_configuration
+    from control.guard_configuration import executable_guard_configuration
     from copy import deepcopy
     p={'cmd_vel_in_topic':'/control/guard_input','cmd_vel_out_topic':'/cmd_vel',
        'polygons':['Approach','Stop'],'observation_sources':['scan','depth'],

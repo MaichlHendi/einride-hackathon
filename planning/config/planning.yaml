@@ -1,4 +1,4 @@
-# PROVISIONAL joint-build values. Owner risk method/threshold require calibration review.
+# PROVISIONAL joint-build values. Risk method and threshold require calibration review.
 /**:
   ros__parameters:
     opennav_docking: false # [bool] Hardware uses installed DockRobot/UndockRobot; legacy sim path unchanged.
@@ -6,14 +6,14 @@
     dock_depth_min_height: 0.04 # PROVISIONAL [m] Attribution uses collision-monitor base-frame filter.
     dock_depth_max_height: 0.50 # PROVISIONAL [m] Attribution uses collision-monitor base-frame filter.
     dock_occupancy_enabled: true # [bool] Physical dock admission, independent of timed risk.
-    dock_static_margin: 0.12 # PROVISIONAL [m] Match existing Perception static association; attempt 3 retained a false wall mark 0.08 m from saved wall.
-    dock_occupancy_radius: 0.5 # PROVISIONAL [m] TEAM suggested radius about docking centre.
+    dock_static_margin: 0.12 # PROVISIONAL [m] Static association margin for map artifacts near saved walls.
+    dock_occupancy_radius: 0.5 # PROVISIONAL [m] integration-selected radius about docking centre.
     dock_standoff_back: 0.8 # PROVISIONAL [m] Back from mapped approach, clear of departing robot.
     dock_standoff_side: 0.4 # PROVISIONAL [m] Sideways from exit centreline; choose a known-clear side.
     dock_clear_time: 2.0 # PROVISIONAL [s sim] Continuous fresh clear observations before re-entry.
-    dock_use_predictions: false # PROVISIONAL [bool] Attempt-2 recording fails <0.3 m tracking RMSE; retain sensor-costmap admission until corrected.
-    dock_track_max_age: 2.0 # PROVISIONAL [s sim] TEAM camera-specific receipt age limit.
-    dock_track_max_sigma: 0.3 # PROVISIONAL [m] TEAM largest 1-sigma positional uncertainty limit.
+    dock_use_predictions: false # PROVISIONAL [bool] Recorded tracking error exceeds 0.3 m; retain sensor-costmap admission until corrected.
+    dock_track_max_age: 2.0 # PROVISIONAL [s sim] camera-specific receipt age limit.
+    dock_track_max_sigma: 0.3 # PROVISIONAL [m] selected largest 1-sigma positional uncertainty limit.
     use_sim_time: true
     saga_url: http://127.0.0.1:8000 # Runtime local Saga endpoint.
     saga_token: '' # Secret runtime parameter ONLY; never record parameter_events.
@@ -31,10 +31,10 @@
     occupied_threshold: 50 # PROVISIONAL [0..100] Unknown always blocked for planning.
     speed_limit: 0.3 # PROVISIONAL [m/s] Validate MPPI and stopping distance.
     turn_rate: 0.6 # PROVISIONAL [rad/s] Timed candidate conservative turn limit.
-    risk_horizon: 3.0 # PROVISIONAL [s] TEAM proposal, not validated safety limit.
+    risk_horizon: 3.0 # PROVISIONAL [s] integration proposal, not validated safety limit.
     trajectory_dt: 0.25 # PROVISIONAL [s] Validate matching/interpolation.
-    safety_margin: 0.20 # PROVISIONAL [m outside BOTH footprints] TEAM proposed clearance.
-    risk_tolerance: 0.45 # TEMPORARY [probability] Owner decision pending; compare outcomes, not injection floor.
+    safety_margin: 0.20 # PROVISIONAL [m outside BOTH footprints] selected clearance.
+    risk_tolerance: 0.45 # TEMPORARY [probability] Calibration decision pending; compare outcomes, not injection floor.
     risk_samples_power: 7 # PROVISIONAL [log2 samples] Deterministic quadrature convergence test.
     probability_epsilon: 0.000001 # PROVISIONAL [probability] Numerical mass tolerance.
     own_pose_sigma: 0.0 # [m] Perception already includes pose error; avoid adding twice by default.
@@ -48,8 +48,8 @@
     look_observation_timeout: 3.0 # PROVISIONAL [s sim] Bound wait for post-turn receipt; failure stays WAIT.
     deadlock_timeout: 8.0 # PROVISIONAL [s sim] Trigger new candidate/replan, never waive risk.
     understanding_threshold: 0.03 # PROVISIONAL [probability] Relevant unconfirmed mass for LOOK.
-    risk_check: false # [bool] Baseline; TEAM comparison explicitly enables risk on Nav2 /plan.
-    risk_wait_limit: 8.0 # PROVISIONAL [s sim] TEAM cap per risk WAIT, then resume for Nav2 replan.
+    risk_check: false # [bool] Baseline; evaluation comparison explicitly enables risk on Nav2 /plan.
+    risk_wait_limit: 8.0 # PROVISIONAL [s sim] selected cap per risk WAIT, then resume for Nav2 replan.
     look: true # [bool] Feature switch.
     observation_curves: true # [bool] Try visibility-qualified detour before stationary LOOK.
     observation_offset: 0.3 # PROVISIONAL [m] Candidate waypoint side offset, checked against inflated map.

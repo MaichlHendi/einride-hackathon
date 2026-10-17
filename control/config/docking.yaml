@@ -7,7 +7,7 @@ docking_server:
     controller_frequency: 20.0 # PROVISIONAL [Hz] Below installed 50Hz default for Jetson.
     initial_perception_timeout: 5.0 # [s] Installed default.
     dock_approach_timeout: 30.0 # [s] Installed default.
-    dock_prestaging_tolerance: 0.12 # [m] Owner staging position tolerance.
+    dock_prestaging_tolerance: 0.12 # [m] Selected staging position tolerance.
     undock_linear_tolerance: 0.05 # [m] Installed default.
     undock_angular_tolerance: 0.05 # [rad] Installed default.
     max_retries: 3 # [attempts] Installed default.
@@ -26,7 +26,7 @@ docking_server:
 # Template expanded for each of eight dock IDs; all are ROS plugin parameters.
 dock_template:
   ros__parameters:
-    plugin: team_control::TagDock
+    plugin: control::TagDock
     use_external_detection_pose: true
     external_detection_timeout: 1.0 # PROVISIONAL [s] Same installed default; stale camera fails docking.
     external_detection_translation_y: 0.0 # [m] Tag is dock centreline.
@@ -34,8 +34,8 @@ dock_template:
     external_detection_rotation_pitch: 0.0 # [rad] Already planar.
     external_detection_rotation_roll: 0.0 # [rad] Already planar.
     staging_yaw_offset: 0.0 # [rad] Dock alignment shares inward axis.
-    docking_threshold: 0.005 # PROVISIONAL [m] Longitudinal tolerance in team plugin; lateral bound is separate, not a radius.
-    heading_tolerance: 0.05 # [rad] Owner acceptance.
-    lateral_tolerance: 0.03 # [m] Owner acceptance.
+    docking_threshold: 0.005 # PROVISIONAL [m] Longitudinal tolerance in the docking plugin; lateral bound is separate, not a radius.
+    heading_tolerance: 0.05 # [rad] Acceptance threshold.
+    lateral_tolerance: 0.03 # [m] Acceptance threshold.
     filter_coef: 0.1 # [fraction] Installed detector pose filter default.
     use_stall_detection: false # Non-contact dock.

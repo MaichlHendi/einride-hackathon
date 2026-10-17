@@ -1,6 +1,6 @@
-# Hardware profile overlays; owner-requested 25W bring-up budget, PROVISIONAL until measured.
+# Hardware profile overlays; 25W bring-up budget, PROVISIONAL until measured.
 mapping_footprint_padding: 0.06 # PROVISIONAL [m] Stop .05m margin plus .01m planning allowance; mapping only.
-mission_coordinator_rate: 5.0 # [Hz] Owner idle-load budget; matches planning tick and .6s request lease.
+mission_coordinator_rate: 5.0 # [Hz] Idle-load budget; matches planning tick and .6s request lease.
 lifecycle:
   autostart: true
   bond_timeout: 20.0 # [s] User decision: tolerate startup load.
@@ -26,8 +26,8 @@ control:
             min_obstacle_height: 0.0 # [m] Native layer lower bound; explicitly include elevated lidar.
             max_obstacle_height: 2.0 # [m] Native layer upper bound; Jazzy per-source default0 filters all elevated hits.
         inflation_layer:
-          inflation_radius: 0.35 # [m] Owner floor-session clearance.
-          cost_scaling_factor: 3.0 # [1/m] Owner floor-session clearance.
+          inflation_radius: 0.35 # [m] Hardware-calibrated clearance.
+          cost_scaling_factor: 3.0 # [1/m] Hardware-calibrated clearance.
   bt_navigator:
     ros__parameters:
       transform_tolerance: 1.0 # [s]
@@ -45,8 +45,8 @@ planning:
             min_obstacle_height: 0.0 # [m] Native layer lower bound; explicitly include elevated lidar.
             max_obstacle_height: 2.0 # [m] Native layer upper bound; Jazzy per-source default0 filters all elevated hits.
         inflation_layer:
-          inflation_radius: 0.35 # [m] Owner floor-session clearance.
-          cost_scaling_factor: 3.0 # [1/m] Owner floor-session clearance.
+          inflation_radius: 0.35 # [m] Hardware-calibrated clearance.
+          cost_scaling_factor: 3.0 # [1/m] Hardware-calibrated clearance.
 slam:
   /**:
     ros__parameters:

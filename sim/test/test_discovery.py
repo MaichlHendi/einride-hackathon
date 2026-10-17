@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 import pytest
-from team_sim.discovery import write_discovery_profile
+from sim.discovery import write_discovery_profile
 
 
 def test_explicit_peers_cover_late_participants_on_localhost(tmp_path):

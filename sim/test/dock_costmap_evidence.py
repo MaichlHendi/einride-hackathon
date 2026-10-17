@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 from scipy.ndimage import distance_transform_edt
 from area_check import messages,seconds,localisation_summary
-from team_planning.dock_occupancy import dynamic_points,sample
+from planning.dock_occupancy import dynamic_points,sample
 
 
 def report(directory,dock_id,times,output):

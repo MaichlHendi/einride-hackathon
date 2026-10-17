@@ -10,10 +10,10 @@ from pathlib import Path
 import numpy as np,yaml
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from area_check import messages,seconds
-from team_sim.detector import transform
-from team_sim.detector_node import pose_matrix
-from team_sim.history import PoseHistory
-from team_sim.grid import Grid
+from sim.detector import transform
+from sim.detector_node import pose_matrix
+from sim.history import PoseHistory
+from sim.grid import Grid
 p=Path(sys.argv[1]);params=yaml.safe_load((p/'params.yaml').read_text())['/**']['ros__parameters']
 h=PoseHistory(1e9);edges={};frames=[]
 for topic,m,_ in messages(p,['/sim/truth','/tf_static','/sim/detections']):

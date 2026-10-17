@@ -3,7 +3,7 @@ import math
 import numpy as np
 import yaml
 from nav_msgs.msg import OccupancyGrid
-from team_planning.camera_coverage import WallCoverage,validation_hold
+from planning.camera_coverage import WallCoverage,validation_hold
 
 
 def parameters():return yaml.safe_load((Path(__file__).parents[1]/'config/coverage.yaml').read_text())['/**']['ros__parameters']
@@ -35,8 +35,8 @@ def test_hold_observes_validator_spacing_not_only_seven_hz_camera():
 def test_mapping_handoff_requires_no_frontiers_valid_docks_and_saved_snapshot():
     import rclpy
     from std_msgs.msg import String
-    from team_interfaces.msg import DockMap
-    from team_planning.coverage_node import CoverageNode
+    from interfaces.msg import DockMap
+    from planning.coverage_node import CoverageNode
     rclpy.init();node=CoverageNode()
     try:
         node.world=WallCoverage(room(),node.p)
@@ -66,8 +66,8 @@ def test_processed_camera_frustum_not_robot_heading_marks_seen():
 def test_ready_dock_map_disables_search_and_cannot_be_resumed():
     import rclpy
     from std_msgs.msg import Bool
-    from team_interfaces.msg import DockMap
-    from team_planning.coverage_node import CoverageNode
+    from interfaces.msg import DockMap
+    from planning.coverage_node import CoverageNode
     rclpy.init(); node=CoverageNode()
     try:
         node.phase='CAMERA'; node.on_docks(DockMap(ready=True))
@@ -79,7 +79,7 @@ def test_ready_dock_map_disables_search_and_cannot_be_resumed():
 
 
 def test_qualified_only_view_has_no_gain_and_new_camera_frame_is_idempotent():
-    from team_interfaces.msg import DockLandmark
+    from interfaces.msg import DockLandmark
     p=parameters();world=WallCoverage(room(),p)
     frame=dict(stamp_s=1.,origin=[1.5,1.5,.15],rotation=[[0,0,1],[-1,0,0],[0,-1,0]],width=1280,height=720,fx=920.,fy=920.,cx=640.,cy=360.)
     world.observe(frame);seen=world.seen.copy();world.observe(frame)
@@ -92,8 +92,8 @@ def test_qualified_only_view_has_no_gain_and_new_camera_frame_is_idempotent():
 
 def test_validation_while_driving_cancels_view_without_extra_hold():
     import rclpy
-    from team_interfaces.msg import DockMap
-    from team_planning.coverage_node import CoverageNode
+    from interfaces.msg import DockMap
+    from planning.coverage_node import CoverageNode
     rclpy.init();node=CoverageNode()
     try:
         node.phase='DRIVE';node.target_docks=[2,3];m=DockMap()
@@ -105,7 +105,7 @@ def test_validation_while_driving_cancels_view_without_extra_hold():
 
 
 def test_explicit_dock_identity_survives_raster_occlusion_and_qualification():
-    from team_interfaces.msg import DockMap
+    from interfaces.msg import DockMap
     p=parameters();world=WallCoverage(room(),p);world.seen[:]=True
     m=DockMap();d=m.docks[2];d.dock_id=2
     d.tag_pose.pose.position.x=2.95;d.tag_pose.pose.position.y=1.5
@@ -114,7 +114,7 @@ def test_explicit_dock_identity_survives_raster_occlusion_and_qualification():
     choices=world.candidates(np.array([1.5,1.5,0.]),world,[],0.,docks=[d])
     assert choices and all(c[5]==(2,) for c in choices)
     import rclpy
-    from team_planning.coverage_node import CoverageNode
+    from planning.coverage_node import CoverageNode
     from types import SimpleNamespace
     rclpy.init();node=CoverageNode()
     try:
@@ -138,7 +138,7 @@ def test_obstacle_rejection_returns_error_that_explore_lite_blacklists():
     import rclpy
     from rclpy.task import Future
     from nav2_msgs.action import NavigateToPose,ComputePathToPose
-    from team_planning.coverage_node import CoverageNode
+    from planning.coverage_node import CoverageNode
     from types import SimpleNamespace
     rclpy.init();node=CoverageNode()
     try:

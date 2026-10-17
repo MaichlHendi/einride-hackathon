@@ -13,7 +13,7 @@ output=$(cd -- "$output" && pwd)
 run_stage() {
   local stage=$1 name=$2 count=$3 duration=$4 map_source=$5
   shift 5
-  ros2 run team_sim sim_experiment_node --workspace "$workspace" \
+  ros2 run sim sim_experiment_node --workspace "$workspace" \
     --scenario "$sim_repo/sim/config/e4.yaml" --output-dir "$output/$name" \
     --ros-args -p stack_stage:="$stage" -p traffic_count:="$count" -p duration:="$duration" \
     -p map_source:="$map_source" -p map_snapshot:="$output/E0/run_000/slam_snapshot.json" "$@"

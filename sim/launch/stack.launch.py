@@ -26,10 +26,10 @@ def start(context):
             return [LogInfo(msg=f'Nav2 executable started: {executable} (pid {event.pid})')]
         return []
     nodes=[RegisterEventHandler(OnProcessStart(on_start=process_started))]
-    if sim['map_source']=='fixture':nodes.append(Node(package='team_sim',executable='sim_fixture_node',parameters=[config],output='screen'))
+    if sim['map_source']=='fixture':nodes.append(Node(package='sim',executable='sim_fixture_node',parameters=[config],output='screen'))
     else:
-        nodes.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(Path(get_package_share_directory('team_slam'))/'launch/slam.launch.py')),launch_arguments={'use_sim_time':'true','save_snapshot':str(directory/'slam_snapshot.json'),'load_snapshot':sim['map_snapshot'] if sim['map_source']=='snapshot' else ''}.items()))
-    planning=yaml.safe_load((Path(get_package_share_directory('team_planning'))/'config/planning.yaml').read_text());p=planning['/**']['ros__parameters']
+        nodes.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(Path(get_package_share_directory('slam'))/'launch/slam.launch.py')),launch_arguments={'use_sim_time':'true','save_snapshot':str(directory/'slam_snapshot.json'),'load_snapshot':sim['map_snapshot'] if sim['map_source']=='snapshot' else ''}.items()))
+    planning=yaml.safe_load((Path(get_package_share_directory('planning'))/'config/planning.yaml').read_text());p=planning['/**']['ros__parameters']
     p.update(mission_enabled=stage!='E0',risk_check=sim['planning_risk'],look=sim['planning_look'],observation_curves=sim['planning_observation_curves'],manual_goal=sim['manual_goal'] if stage=='E1' else -1,saga_url=sim['saga_url'])
     # Only E0 maps. A delayed/missing DockMap in saved-map stages must hold,
     # rather than incorrectly starting mapping exploration before readiness.
@@ -38,16 +38,16 @@ def start(context):
         if sim['planning_risk_tolerance']>p['risk_tolerance']:raise ValueError('Scenario risk override must be no less cautious than baseline')
         p['risk_tolerance']=sim['planning_risk_tolerance']
     file=directory/'planning.yaml';file.write_text(yaml.safe_dump(planning))
-    nodes.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(Path(get_package_share_directory('team_planning'))/'launch/planning.launch.py')),launch_arguments={'config':str(file)}.items()))
+    nodes.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(Path(get_package_share_directory('planning'))/'launch/planning.launch.py')),launch_arguments={'config':str(file)}.items()))
     if perception:
-        params=yaml.safe_load((Path(get_package_share_directory('team_perception'))/'config/perception.yaml').read_text());p=params['/**']['ros__parameters']
+        params=yaml.safe_load((Path(get_package_share_directory('perception'))/'config/perception.yaml').read_text());p=params['/**']['ros__parameters']
         mapping={'lidar':'perception_lidar','camera_negative_evidence':'perception_camera_negative','lidar_negative_evidence':'perception_lidar_negative','dock_steering':'perception_dock_steering','injection':'perception_injection','heavy_tail':'perception_heavy_tail','floor_cue':'perception_floor_cue','height_cue':'perception_height_cue','depth_cue':'perception_depth_cue','detector_source':'detector_source'}
         p.update({k:sim[v] for k,v in mapping.items()});file=directory/'perception.yaml';file.write_text(yaml.safe_dump(params))
-        nodes.append(Node(package='team_perception',executable='perception_perception_node',respawn=True,respawn_delay=3.0,parameters=[str(file)],output='screen'))
-    if stage!='E0':nodes.append(Node(package='team_perception',executable='perception_dock_node',respawn=True,respawn_delay=3.0,parameters=[str(Path(get_package_share_directory('team_perception'))/'config/perception.yaml')],output='screen'))
-    launch=Path(get_package_share_directory('team_control'))/'launch/control.launch.py'
-    nodes.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(launch)),launch_arguments={'config':str(Path(get_package_share_directory('team_control'))/'config/control.yaml'),'require_predictions':str(perception and (sim['control_prediction_critic'] or sim['planning_risk'])).lower(),'navigation_tree':'navigate_to_pose_w_replanning_and_recovery.xml' if stage=='E0' else 'navigate_w_replanning_time.xml','prediction_critic':str(perception and sim['control_prediction_critic']).lower()}.items()))
-    nodes.append(Node(package='team_sim',executable='sim_visualization_node',parameters=[config],output='screen'))
+        nodes.append(Node(package='perception',executable='perception_perception_node',respawn=True,respawn_delay=3.0,parameters=[str(file)],output='screen'))
+    if stage!='E0':nodes.append(Node(package='perception',executable='perception_dock_node',respawn=True,respawn_delay=3.0,parameters=[str(Path(get_package_share_directory('perception'))/'config/perception.yaml')],output='screen'))
+    launch=Path(get_package_share_directory('control'))/'launch/control.launch.py'
+    nodes.append(IncludeLaunchDescription(PythonLaunchDescriptionSource(str(launch)),launch_arguments={'config':str(Path(get_package_share_directory('control'))/'config/control.yaml'),'require_predictions':str(perception and (sim['control_prediction_critic'] or sim['planning_risk'])).lower(),'navigation_tree':'navigate_to_pose_w_replanning_and_recovery.xml' if stage=='E0' else 'navigate_w_replanning_time.xml','prediction_critic':str(perception and sim['control_prediction_critic']).lower()}.items()))
+    nodes.append(Node(package='sim',executable='sim_visualization_node',parameters=[config],output='screen'))
     if sim['foxglove']:
         nodes.append(Node(package='foxglove_bridge',executable='foxglove_bridge',parameters=[{'use_sim_time':True,'port':sim['foxglove_port'],'address':'127.0.0.1'}],output='screen'))
     core={'async_slam_toolbox_node','map_server','amcl','map_saver_server','planner_server','controller_server','behavior_server','bt_navigator','collision_monitor','lifecycle_manager','slam_wheel_odometry_node'}

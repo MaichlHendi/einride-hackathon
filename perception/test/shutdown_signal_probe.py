@@ -1,8 +1,8 @@
 # Test-only scheduling hook: signal at a real image take, not a fabricated exception.
 import os,time
-from team_perception import ros_support
-from team_perception.dock_node import DockNode
-from team_perception.perception_node import PerceptionNode
+from perception import ros_support
+from perception.dock_node import DockNode
+from perception.perception_node import PerceptionNode
 cls=DockNode if os.environ['TARGET']=='dock' else PerceptionNode
 original=ros_support.DiagnosticExecutor._take_subscription
 start=time.monotonic();armed=True

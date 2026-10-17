@@ -8,9 +8,9 @@ from rclpy.duration import Duration
 from tf2_ros import Buffer,TransformException
 from sensor_msgs_py.point_cloud2 import read_points_numpy
 from area_check import messages,seconds
-from team_sim.detector import transform
-from team_sim.detector_node import pose_matrix
-from team_sim.history import PoseHistory
+from sim.detector import transform
+from sim.detector_node import pose_matrix
+from sim.history import PoseHistory
 
 def matrix(tr):
  t=tr.translation;q=tr.rotation;return transform([t.x,t.y,t.z],[q.x,q.y,q.z,q.w])

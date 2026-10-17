@@ -17,7 +17,7 @@ from rclpy.parameter import Parameter
 from rclpy.parameter_client import AsyncParameterClient
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import LaserScan
-from team_interfaces.msg import CoordinatorRequest, Predictions
+from interfaces.msg import CoordinatorRequest, Predictions
 
 
 def main():
@@ -33,14 +33,14 @@ def main():
     node.create_subscription(LaserScan, '/scan', scans.append, qos_profile_sensor_data)
     pub = node.create_publisher(Predictions, '/phase0/predictions', 1)
     try:
-        result = subprocess.run(['ros2', 'launch', 'team_interfaces', 'interfaces.launch.py'],
+        result = subprocess.run(['ros2', 'launch', 'interfaces', 'interfaces.launch.py'],
                                 capture_output=True, text=True, timeout=15)
         assert result.returncode == 0, result.stderr
         for area in ['slam', 'planning', 'control', 'perception', 'sim']:
             output = (logdir / (area + '.log')).open('w')
             outputs.append(output)
             processes.append(subprocess.Popen(
-                ['ros2', 'launch', 'team_' + area, area + '.launch.py', 'use_sim_time:=true'],
+                ['ros2', 'launch', area, area + '.launch.py', 'use_sim_time:=true'],
                 stdout=output, stderr=subprocess.STDOUT, start_new_session=True))
         deadline = time.monotonic() + 30
         clients = {area: AsyncParameterClient(node, '/' + area + '_skeleton')

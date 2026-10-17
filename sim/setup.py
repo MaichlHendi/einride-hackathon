@@ -1,7 +1,7 @@
 from glob import glob
 from setuptools import find_packages, setup
 
-package_name = 'team_sim'
+package_name = 'sim'
 setup(
     name=package_name, version='0.1.0', packages=find_packages(exclude=['test']),
     data_files=[
@@ -15,17 +15,17 @@ setup(
     description='Multi-robot simulation, mission emulation, metrics, and experiment tools', license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={'console_scripts': [
-        'sim_world_node = team_sim.world_node:main',
-        'sim_truth_node = team_sim.truth_node:main',
-        'sim_map_node = team_sim.map_node:main',
-        'sim_traffic_node = team_sim.traffic_node:main',
-        'sim_organiser_node = team_sim.organiser_node:main',
-        'sim_collision_node = team_sim.collision_node:main',
-        'sim_detector_node = team_sim.detector_node:main',
-        'sim_metrics_node = team_sim.metrics_node:main',
-        'sim_experiment_node = team_sim.runner:main',
-        'sim_fixture_node = team_sim.fixture_node:main',
-        'sim_visualization_node = team_sim.visualization_node:main',
-        'sim_skeleton_node = team_sim.skeleton_node:main',
+        'sim_world_node = sim.world_node:main',
+        'sim_truth_node = sim.truth_node:main',
+        'sim_map_node = sim.map_node:main',
+        'sim_traffic_node = sim.traffic_node:main',
+        'sim_organiser_node = sim.organiser_node:main',
+        'sim_collision_node = sim.collision_node:main',
+        'sim_detector_node = sim.detector_node:main',
+        'sim_metrics_node = sim.metrics_node:main',
+        'sim_experiment_node = sim.runner:main',
+        'sim_fixture_node = sim.fixture_node:main',
+        'sim_visualization_node = sim.visualization_node:main',
+        'sim_skeleton_node = sim.skeleton_node:main',
     ]},
 )

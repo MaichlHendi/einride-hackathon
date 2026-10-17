@@ -10,7 +10,7 @@ from rclpy.executors import SingleThreadedExecutor
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import Image
 from vision_msgs.msg import Detection2DArray
-from team_perception.detector_node import DetectorNode
+from perception.detector_node import DetectorNode
 
 
 def main():

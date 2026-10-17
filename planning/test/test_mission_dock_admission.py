@@ -2,9 +2,9 @@
 from types import SimpleNamespace as NS
 import numpy as np
 from geometry_msgs.msg import Pose
-from team_interfaces.msg import DockLandmark
-from team_planning.mission_node import MissionNode
-from team_planning.dock_occupancy import DockAdmission
+from interfaces.msg import DockLandmark
+from planning.mission_node import MissionNode
+from planning.dock_occupancy import DockAdmission
 from test_dock_occupancy import grid
 
 
@@ -61,7 +61,7 @@ def test_recent_precise_camera_track_can_hold_dock_without_costmap_mark():
 
 
 def test_package_dock_receipt_then_undock_before_new_delivery():
-    from team_interfaces.msg import CoordinatorStatus
+    from interfaces.msg import CoordinatorStatus
     from types import SimpleNamespace as NS
     n,d=fixture();n.arrived=False;n.docked_at=None
     n.publish_trajectory=lambda *a:None

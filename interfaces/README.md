@@ -8,6 +8,6 @@ Message definitions live in `msg/`. `test/test_contracts.py` checks constants,
 defaults, and the public field contract.
 
 ```bash
-colcon build --packages-select team_interfaces
-colcon test --packages-select team_interfaces
+colcon build --packages-select interfaces
+colcon test --packages-select interfaces
 ```

@@ -1,4 +1,4 @@
 # PROVISIONAL topic /perception/dock_states.
 std_msgs/Header header # Belief evaluation time; frame_id=map.
 uint64 map_revision
-team_interfaces/DockState[8] docks # Exactly one record per dock 0..7.
+interfaces/DockState[8] docks # Exactly one record per dock 0..7.

@@ -11,6 +11,6 @@ processes depth points, and provides collision-safe recovery and escape logic.
 - `config/hardware_motion.yaml`: measured hardware motion limits.
 
 ```bash
-ros2 launch team_control control.launch.py
-colcon test --packages-select team_control
+ros2 launch control control.launch.py
+colcon test --packages-select control
 ```

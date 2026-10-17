@@ -1,7 +1,7 @@
 from glob import glob
 from setuptools import find_packages, setup
 
-package_name = 'team_slam'
+package_name = 'slam'
 setup(
     name=package_name, version='0.1.0', packages=find_packages(exclude=['test']),
     data_files=[
@@ -15,8 +15,8 @@ setup(
     description='SLAM, localization, dock mapping, snapshots, and wheel/IMU odometry', license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={'console_scripts': [
-        'slam_wheel_odometry_node = team_slam.wheel_odometry_node:main',
-        'slam_skeleton_node = team_slam.skeleton_node:main',
-        'slam_slam_node = team_slam.slam_node:main',
+        'slam_wheel_odometry_node = slam.wheel_odometry_node:main',
+        'slam_skeleton_node = slam.skeleton_node:main',
+        'slam_slam_node = slam.slam_node:main',
     ]},
 )

@@ -6,7 +6,7 @@ import numpy as np,yaml
 from scipy.ndimage import distance_transform_edt
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from area_check import messages,seconds
-from team_planning.grid import Grid
+from planning.grid import Grid
 p=Path(sys.argv[1]);params=yaml.safe_load((p/'planning.yaml').read_text())['/**']['ros__parameters'];result=json.loads((p/'result.json').read_text());end=result['start_sim_s']+result['duration_sim_s']
 latest={};transforms={};counts=collections.defaultdict(collections.Counter);samples=[];next_sample=10.;start=None;current_reason='';cmd_counts=collections.defaultdict(collections.Counter)
 def grid(m):

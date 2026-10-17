@@ -3,4 +3,4 @@ std_msgs/Header header # Evaluation time; frame_id=map.
 uint64 map_revision
 string goal_id
 uint64 path_version
-team_interfaces/UnderstandingRegion[] regions
+interfaces/UnderstandingRegion[] regions

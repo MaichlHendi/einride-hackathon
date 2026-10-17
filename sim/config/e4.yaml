@@ -13,7 +13,7 @@ parameters:
 features:
   detector_enabled: true
   detector_source: emulator
-  planning_risk: false # Owner v1 decision: timed-path risk disabled; code retained.
+  planning_risk: false # V1 configuration: timed-path risk disabled; code retained.
   planning_look: true
   planning_observation_curves: true
   control_prediction_critic: false

@@ -4,4 +4,4 @@ from launch.actions import LogInfo
 
 
 def generate_launch_description():
-    return LaunchDescription([LogInfo(msg='PROVISIONAL team_interfaces definitions installed; no runtime nodes')])
+    return LaunchDescription([LogInfo(msg='PROVISIONAL interfaces definitions installed; no runtime nodes')])

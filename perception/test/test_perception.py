@@ -1,13 +1,13 @@
 from pathlib import Path
 import numpy as np
 import yaml
-from team_planning.grid import Grid
-from team_perception.measurements import fuse_cues,surprise_groups,likelihood,camera_cues
-from team_perception.association import marginal_associations
-from team_perception.timing import MeasurementQueue
-from team_perception.filter import Belief,systematic
-from team_perception.output import predictions
-from team_perception.visibility import visible
+from planning.grid import Grid
+from perception.measurements import fuse_cues,surprise_groups,likelihood,camera_cues
+from perception.association import marginal_associations
+from perception.timing import MeasurementQueue
+from perception.filter import Belief,systematic
+from perception.output import predictions
+from perception.visibility import visible
 
 
 def params():
@@ -34,7 +34,7 @@ def test_gap_does_not_invent_wall_range():
 
 def test_static_edge_association_keeps_robot_returns_and_nan_gap_evidence():
     from scipy.ndimage import distance_transform_edt
-    from team_perception.visibility import static_return_mask
+    from perception.visibility import static_return_mask
     p=params();a=np.zeros((40,40),bool);a[:,30]=True
     grid=Grid(a,.04,[-.4,-.8]);clearance=distance_transform_edt(~a)*grid.resolution
     ranges=np.array([.77,.4,np.nan]);angles=np.zeros(3)
@@ -101,8 +101,8 @@ def test_output_probability_bounds_survive_floating_point_normalisation():
 
 
 def test_stationary_plan_looks_toward_uncertain_support_not_ego():
-    from team_planning.geometry import FrameGrid
-    from team_perception.output import understanding_region
+    from planning.geometry import FrameGrid
+    from perception.output import understanding_region
     p,g,d=fixture();b=Belief(g,d,[0,0],p);b.grid=FrameGrid(g,[0,0,0])
     for cloud in b.clouds:cloud[:,:2]=[0.,.3]
     target,mass,labels=understanding_region(b,np.array([0.,0.]),2.)
@@ -113,7 +113,7 @@ def test_stationary_plan_looks_toward_uncertain_support_not_ego():
 
 
 def test_map_correction_repairs_trapped_support_without_moving_valid_particles():
-    from team_planning.geometry import FrameGrid
+    from planning.geometry import FrameGrid
     p,g,d=fixture();b=Belief(g,d,[0,0],p)
     # A localisation correction moves a previously admissible sample into the
     # inflated right wall. Most samples stay valid in exactly the same odom pose.
@@ -146,7 +146,7 @@ def test_scan_groups_interleave_with_camera_at_capture_time():
 
 
 def test_motion_stops_at_static_wall_and_preserves_dock_reservations():
-    from team_perception.motion import advance
+    from perception.motion import advance
     p,g,d=fixture();b=Belief(g,d,[0,0],p)
     p.update(dock_steering=False,speed_noise=0.,turn_noise=0.)
     states=np.array([[2.,0.,0.,p['max_speed'],0.,2.]])
@@ -157,7 +157,7 @@ def test_motion_stops_at_static_wall_and_preserves_dock_reservations():
 
 def test_dock_tag_identity_depth_and_no_detection_on_blank_image():
     import cv2
-    from team_perception.dock_geometry import detect_tags
+    from perception.dock_geometry import detect_tags
     k=np.array([[400.,0,200],[0,400,200],[0,0,1]])
     image=np.full((400,400),255,np.uint8)
     assert detect_tags(image,k,np.zeros(5),.1,2.)==[]
@@ -169,7 +169,7 @@ def test_dock_tag_identity_depth_and_no_detection_on_blank_image():
 
 
 def test_lidar_update_preserves_camera_exclusion_and_gaps_are_not_clear():
-    from team_perception.visibility import lidar_clear_mask
+    from perception.visibility import lidar_clear_mask
     p,g,d=fixture();b=Belief(g,d,[0,0],p)
     b.update([],1.,([0,0],0.,[]),negative=True)
     view=b.view;b.update([],1.1)

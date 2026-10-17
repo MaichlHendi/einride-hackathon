@@ -12,9 +12,9 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    share=Path(get_package_share_directory('team_sim'))
+    share=Path(get_package_share_directory('sim'))
     config=LaunchConfiguration('config'); directory=LaunchConfiguration('run_dir')
-    prepare=Node(package='team_sim',executable='sim_world_node',output='screen',parameters=[config,{
+    prepare=Node(package='sim',executable='sim_world_node',output='screen',parameters=[config,{
         'run_dir':directory,'traffic_count':ParameterValue(LaunchConfiguration('traffic_count'),value_type=int),
         'use_sim_time':True}])
     def ready(event,context):
@@ -30,7 +30,7 @@ def generate_launch_description():
         return actions if int(LaunchConfiguration('traffic_count').perform(context)) else actions[:1]
     return LaunchDescription([
         DeclareLaunchArgument('config',default_value=str(share/'config/sim.yaml')),
-        DeclareLaunchArgument('run_dir',default_value='/tmp/team_sim_run'),
+        DeclareLaunchArgument('run_dir',default_value='/tmp/sim_run'),
         DeclareLaunchArgument('traffic_count',default_value='3'),
         DeclareLaunchArgument('headless',default_value='true'),
         RegisterEventHandler(OnProcessExit(target_action=prepare,on_exit=ready)),prepare])

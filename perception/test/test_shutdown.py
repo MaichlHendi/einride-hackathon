@@ -3,7 +3,7 @@ import os,signal
 import pytest
 import rclpy
 from rclpy.node import Node
-from team_perception.ros_support import run
+from perception.ros_support import run
 
 @pytest.mark.parametrize('sig',[signal.SIGINT,signal.SIGTERM])
 def test_signal_defers_context_shutdown_until_callback_returns(sig):

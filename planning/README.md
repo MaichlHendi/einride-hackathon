@@ -11,6 +11,6 @@ Prediction-risk code remains available behind configuration switches.
 - `launch/planning.launch.py`: package launch entry point.
 
 ```bash
-ros2 launch team_planning planning.launch.py
-colcon test --packages-select team_planning
+ros2 launch planning planning.launch.py
+colcon test --packages-select planning
 ```

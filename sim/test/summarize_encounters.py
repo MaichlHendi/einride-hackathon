@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Collect the fixed owner-directed verification matrix; bags remain ignored."""
+"""Collect the fixed verification matrix; bags remain ignored."""
 import argparse,csv,json,re
 from pathlib import Path
-parser=argparse.ArgumentParser(description='Summarise completed owner encounter checks without changing acceptance.')
+parser=argparse.ArgumentParser(description='Summarise completed encounter checks without changing acceptance.')
 parser.add_argument('run_root',type=Path);parser.add_argument('output',type=Path)
 args=parser.parse_args();root=args.run_root;out=args.output;out.mkdir(parents=True,exist_ok=True)
 rows=[];checks={};visibility={}

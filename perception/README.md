@@ -12,6 +12,6 @@ explicitly for simulation and hardware inputs.
 Model binaries are runtime inputs and are not included.
 
 ```bash
-ros2 launch team_perception perception.launch.py
-colcon test --packages-select team_perception
+ros2 launch perception perception.launch.py
+colcon test --packages-select perception
 ```

@@ -7,7 +7,7 @@ import math
 import yaml
 import rosbag2_py
 from rclpy.serialization import deserialize_message
-from team_interfaces.msg import RobotTruthArray
+from interfaces.msg import RobotTruthArray
 
 
 def check(directory):
@@ -25,7 +25,7 @@ def check(directory):
     assert forced, 'No labelled forced collision event'
     metadata=yaml.safe_load((directory/'bag/metadata.yaml').read_text())['rosbag2_bagfile_information']
     counts={t['topic_metadata']['name']:t['message_count'] for t in metadata['topics_with_message_count']}
-    assert counts.get('/cmd_vel',0)==0, 'Phase 1 must not command our robot'
+    assert counts.get('/cmd_vel',0)==0, 'Phase 1 must not command the ego robot'
     for topic in ['/sim/truth','/sim/collisions','/sim/routes','/sim/detections','/clock','/scan']:
         assert counts.get(topic,0)>0, topic+' missing from bag'
     for robot in range(1,4):

@@ -4,16 +4,16 @@
 #include <cmath>
 #include "nav2_mppi_controller/critic_function.hpp"
 #include "pluginlib/class_list_macros.hpp"
-#include "team_interfaces/msg/predictions.hpp"
-#include "team_interfaces/msg/perception_health.hpp"
-#include "team_control_mppi_critic/proximity.hpp"
+#include "interfaces/msg/predictions.hpp"
+#include "interfaces/msg/perception_health.hpp"
+#include "control_mppi_critic/proximity.hpp"
 #include "tf2/utils.hpp"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 
 namespace mppi::critics {
 class PredictionCritic : public CriticFunction {
-  using Predictions=team_interfaces::msg::Predictions;
-  using Health=team_interfaces::msg::PerceptionHealth;
+  using Predictions=interfaces::msg::Predictions;
+  using Health=interfaces::msg::PerceptionHealth;
   std::mutex mutex_;
   Predictions::ConstSharedPtr predictions_;
   Health::ConstSharedPtr health_;
@@ -55,7 +55,7 @@ public:
     for(const auto &robot:predictions->robots) {
       double mass=robot.leftover.probability;for(const auto &g:robot.groups)mass+=g.probability;
       if(!std::isfinite(mass)||std::abs(mass-1.)>epsilon_) {data.fail_flag=true;return;}
-      std::vector<const team_interfaces::msg::PredictedTrajectory*> groups;
+      std::vector<const interfaces::msg::PredictedTrajectory*> groups;
       for(const auto &g:robot.groups)groups.push_back(&g);groups.push_back(&robot.leftover);
       for(const auto *g:groups) {
         if(!std::isfinite(g->probability)||g->probability<0){data.fail_flag=true;return;}
@@ -85,7 +85,7 @@ public:
       for(size_t t=0;t<steps;++t) {
         const double x=c*data.trajectories.x(i,t)-s*data.trajectories.y(i,t)+tx;
         const double y=s*data.trajectories.x(i,t)+c*data.trajectories.y(i,t)+ty;
-        for(const auto &p:samples[t])cost+=p.probability*team_control::proximity(x-p.x,y-p.y,p.xx,p.xy,p.yy,2*radius_+margin_,epsilon_);
+        for(const auto &p:samples[t])cost+=p.probability*control::proximity(x-p.x,y-p.y,p.xx,p.xy,p.yy,2*radius_+margin_,epsilon_);
       }
       data.costs(i)+=static_cast<float>(weight_*cost/steps);
     }

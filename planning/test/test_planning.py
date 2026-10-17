@@ -1,9 +1,9 @@
 import numpy as np
-from team_planning.grid import Grid
-from team_planning.risk import trajectory_risk,confirmed_look
-from team_planning.trajectory import timed_path
-from team_planning.saga import normalise
-from team_planning.behaviour import Situation,decide
+from planning.grid import Grid
+from planning.risk import trajectory_risk,confirmed_look
+from planning.trajectory import timed_path
+from planning.saga import normalise
+from planning.behaviour import Situation,decide
 
 
 def group(start,end,mass=1.):
@@ -61,7 +61,7 @@ def test_timing_includes_initial_turn_and_stationary_wait():
 
 
 def test_rolling_timing_starts_from_actual_path_progress():
-    from team_planning.trajectory import densify
+    from planning.trajectory import densify
     path=densify([[0.,0.],[2.,0.]],.04)
     points=timed_path(path,[1.,0.,0.],.3,.6,.25,3.)
     assert points[0,3]==.3 and points[0,4]==0.
@@ -83,14 +83,14 @@ def test_tree_branches_and_reservations():
 
 
 def test_dense_nav2_preview_retains_segment_geometry():
-    from team_planning.trajectory import densify
+    from planning.trajectory import densify
     path=densify([[0,0],[3,0]],.04)
     assert len(path)==76 and np.allclose(path[-1],[3,0])
     assert max(np.linalg.norm(np.asarray(b)-a) for a,b in zip(path,path[1:]))<.040001
 
 
 def test_observation_curve_checks_view_clearance_and_turn_rate():
-    from team_planning.observation import observation_candidate
+    from planning.observation import observation_candidate
     from scipy.ndimage import distance_transform_edt
     grid=Grid(np.zeros((120,120),bool),.1,[-6,-6])
     path=[[-2.,0.],[2.,0.]]
@@ -104,7 +104,7 @@ def test_observation_curve_checks_view_clearance_and_turn_rate():
 
 
 def test_tentative_tag_view_ignores_bad_normal_and_keeps_clearance():
-    from team_planning.exploration import tag_view_path
+    from planning.exploration import tag_view_path
     from scipy.ndimage import distance_transform_edt
     occupied=np.zeros((60,60),bool);occupied[[0,-1],:]=True;occupied[:,[0,-1]]=True
     grid=Grid(occupied,.1,[-3,-3])

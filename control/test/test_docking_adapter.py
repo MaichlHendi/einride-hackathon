@@ -1,5 +1,5 @@
 import rclpy
-from team_control.docking_adapter import DockingAdapter
+from control.docking_adapter import DockingAdapter
 
 def test_real_docking_adapter_initializes_action_endpoints():
     rclpy.init();node=DockingAdapter()
@@ -18,7 +18,7 @@ def test_docking_stages_aligns_then_calls_installed_action_and_undocks():
     from rclpy.action import ActionClient,ActionServer
     from rclpy.executors import SingleThreadedExecutor
     from nav2_msgs.action import NavigateToPose,Spin,DockRobot,UndockRobot
-    from team_interfaces.msg import DockMap
+    from interfaces.msg import DockMap
     from geometry_msgs.msg import TransformStamped
     rclpy.init(args=['--ros-args','-p','navigation_watch_period:=0.01'])
     node=DockingAdapter();backend=Node('fake_package_actions');probe=Node('dock_sequence_probe')

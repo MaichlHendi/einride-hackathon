@@ -4,7 +4,7 @@ import math
 import pytest
 from builtin_interfaces.msg import Duration, Time
 from rclpy.serialization import serialize_message, deserialize_message
-from team_interfaces import msg
+from interfaces import msg
 
 
 def roundtrip(message):

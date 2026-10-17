@@ -2,7 +2,7 @@ from concurrent.futures import Future
 from types import SimpleNamespace as N
 import yaml
 from pathlib import Path
-from team_control import encounter as module
+from control import encounter as module
 
 
 class Client:
@@ -75,6 +75,6 @@ def test_approach_uses_existing_footprint_and_threshold():
     assert cfg['polygons']==['Approach','Slow']
     assert cfg['Approach']['action_type']=='approach'
     assert cfg['Approach']['footprint_topic']=='/local_costmap/published_footprint'
-    assert cfg['Approach']['time_before_collision']==1.2 # Failed conditional d reverted.
+    assert cfg['Approach']['time_before_collision']==1.2 # Baseline simulation horizon.
     assert cfg['Approach']['min_points']==1
     assert cfg['depth']['min_height']==.04 and cfg['depth']['max_height']==.5

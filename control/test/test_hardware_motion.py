@@ -2,7 +2,7 @@ import math
 from pathlib import Path
 import pytest
 import yaml
-from team_control.hardware_motion import hardware_command
+from control.hardware_motion import hardware_command
 
 
 def command(v,w,forward=.35,reverse=.15,angular=.8):

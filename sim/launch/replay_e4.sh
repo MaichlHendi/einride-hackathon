@@ -12,7 +12,7 @@ source /opt/ros/jazzy/setup.bash
 export PATH=/usr/bin:/bin:$PATH
 source "$workspace/install/setup.bash"
 export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST FASTDDS_BUILTIN_TRANSPORTS=UDPv4
-export ROS_DOMAIN_ID=${TEAM_REPLAY_DOMAIN_ID:-89} # Isolate viewer-only replay from live control.
+export ROS_DOMAIN_ID=${AUTONOMY_REPLAY_DOMAIN_ID:-89} # Isolate viewer-only replay from live control.
 # Refuse a live viewer endpoint rather than interfere with an existing run.
 python3 - <<'PY'
 import socket

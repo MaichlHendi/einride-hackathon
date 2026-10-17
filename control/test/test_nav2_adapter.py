@@ -7,8 +7,8 @@ from rclpy.task import Future
 from geometry_msgs.msg import TransformStamped, Twist
 from nav_msgs.msg import Odometry
 from builtin_interfaces.msg import Time, Duration
-from team_interfaces.msg import CoordinatorRequest, CoordinatorStatus, TrajectoryPoint, Predictions, PerceptionHealth
-from team_control.nav2_coordinator import Nav2Coordinator
+from interfaces.msg import CoordinatorRequest, CoordinatorStatus, TrajectoryPoint, Predictions, PerceptionHealth
+from control.nav2_coordinator import Nav2Coordinator
 
 
 class Client:

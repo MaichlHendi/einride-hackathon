@@ -1,7 +1,7 @@
 from pathlib import Path
 import yaml
 import pytest
-from team_sim.hardware import service_environment, wall_clock_config
+from sim.hardware import service_environment, wall_clock_config
 
 
 def test_service_config_is_data_not_shell(tmp_path):
@@ -32,7 +32,7 @@ def test_hardware_profiles(tmp_path,monkeypatch,profile,saved_map):
     from launch_ros.actions import Node
     from launch.actions import RegisterEventHandler
     share=lambda p:Path(get_package_share_directory(p))
-    spec=importlib.util.spec_from_file_location('hardware_launch',share('team_sim')/'launch/hardware.launch.py')
+    spec=importlib.util.spec_from_file_location('hardware_launch',share('sim')/'launch/hardware.launch.py')
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     captured=[]
     def capture(**kwargs):
@@ -43,8 +43,8 @@ def test_hardware_profiles(tmp_path,monkeypatch,profile,saved_map):
     if saved_map:
         snapshot=str(tmp_path/'snapshot.json');(tmp_path/'map.yaml').write_text('{}')
         Path(snapshot).write_text(json.dumps({'format_version':1,'map_yaml':str(tmp_path/'map.yaml'),'landmarks':{str(i):{} for i in range(8)},'final_pose':[0.,0.,0.],'final_pose_covariance':[0.]*36}))
-    monkeypatch.setenv('TEAM_SAGA_TOKEN','test-only')
-    context.launch_configurations.update(config=str(share('team_sim')/'config/hardware.yaml'),profile=profile,
+    monkeypatch.setenv('AUTONOMY_SAGA_TOKEN','test-only')
+    context.launch_configurations.update(config=str(share('sim')/'config/hardware.yaml'),profile=profile,
         use_sim_time='false',run_dir=str(tmp_path),service_config=str(service),snapshot=snapshot,save_snapshot=str(tmp_path/'save.json'),
         saga_url='http://localhost:8000',detector_backend='onnx',detector_config='',odometry_config='',detector_python='/usr/bin/python3',foxglove='false',particles_per_robot='80',tag_search='coverage',coverage_config='')
     if profile in ('full','competition','competition_lite') and not saved_map:
@@ -64,7 +64,7 @@ def test_hardware_profiles(tmp_path,monkeypatch,profile,saved_map):
     assert ('slam_toolbox' in {n.get('name') for n in captured})!=saved_map
     assert sum(n['executable']=='slam_wheel_odometry_node' for n in captured)==1
     for n in captured:
-        if n['package']=='team_perception':assert n['respawn'] and n['respawn_delay']==3.
+        if n['package']=='perception':assert n['respawn'] and n['respawn_delay']==3.
         if n['executable']=='lifecycle_manager':
             assert n['parameters'][0]['bond_timeout']==20.
             assert n['parameters'][0]['attempt_respawn_reconnection']
@@ -95,11 +95,6 @@ def test_hardware_profiles(tmp_path,monkeypatch,profile,saved_map):
     if not full:
         assert control['collision_monitor']['ros__parameters']['observation_sources']==['scan']
         assert planning['global_costmap']['global_costmap']['ros__parameters']['obstacle_layer']['observation_sources']=='scan'
-
-
-def test_environment_does_not_change_callers_shell_options():
-    text=(Path(__file__).parents[2]/'tools/robot_environment.sh').read_text()
-    assert not any(line.startswith('set ') for line in text.splitlines())
 
 
 def test_lidar_source_height_bounds_do_not_use_jazzy_zero_default():

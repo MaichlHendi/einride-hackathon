@@ -8,7 +8,7 @@ from builtin_interfaces.msg import Time
 from sensor_msgs.msg import JointState, Imu
 from nav_msgs.msg import Odometry
 from tf2_msgs.msg import TFMessage
-from team_slam.wheel_odometry_node import WheelOdometryNode
+from slam.wheel_odometry_node import WheelOdometryNode
 
 
 def test_best_effort_sensors_publish_matching_odom_and_tf():

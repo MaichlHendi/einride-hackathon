@@ -18,18 +18,18 @@ def nodes(context):
                 if key=='use_sim_time': value[key]=sim_time
                 else: clock_parameters(item)
     clock_parameters(data)
-    with tempfile.NamedTemporaryFile(mode='w',suffix='.yaml',prefix='team_planning_',delete=False) as f:
+    with tempfile.NamedTemporaryFile(mode='w',suffix='.yaml',prefix='planning_',delete=False) as f:
         yaml.safe_dump(data,f);config=f.name
     parameters=[config, {'use_sim_time':sim_time}]
-    parameters.append({'saga_token':os.environ.get('TEAM_SAGA_TOKEN',os.environ.get('TEAM_SIM_TOKEN_1',''))})
+    parameters.append({'saga_token':os.environ.get('AUTONOMY_SAGA_TOKEN',os.environ.get('AUTONOMY_SIM_TOKEN_1',''))})
     result=[Node(package='nav2_planner',executable='planner_server',name='planner_server',parameters=parameters[:1]+[{'use_sim_time':sim_time}],output='screen'),
         Node(package='nav2_lifecycle_manager',executable='lifecycle_manager',name='planning_costmap_lifecycle',parameters=[{'use_sim_time':sim_time,'autostart':True,'bond_timeout':20.0,'attempt_respawn_reconnection':True,'node_names':['planner_server']}],output='screen'),
-        Node(package='team_planning',executable='planning_planning_node',output='screen',parameters=parameters)]
+        Node(package='planning',executable='planning_planning_node',output='screen',parameters=parameters)]
     if yaml.safe_load(Path(parameters[0]).read_text())['/**']['ros__parameters'].get('explore',False):
-        result.append(Node(package='explore_lite',executable='explore',parameters=[str(Path(get_package_share_directory('team_planning'))/'config/explore.yaml'), {'use_sim_time':sim_time}],remappings=[('navigate_to_pose','/exploration/navigate_to_pose')],output='screen'))
+        result.append(Node(package='explore_lite',executable='explore',parameters=[str(Path(get_package_share_directory('planning'))/'config/explore.yaml'), {'use_sim_time':sim_time}],remappings=[('navigate_to_pose','/exploration/navigate_to_pose')],output='screen'))
     return result
 
 
 def generate_launch_description():
-    config=str(Path(get_package_share_directory('team_planning'))/'config/planning.yaml')
+    config=str(Path(get_package_share_directory('planning'))/'config/planning.yaml')
     return LaunchDescription([DeclareLaunchArgument('use_sim_time',default_value='true'),DeclareLaunchArgument('config',default_value=config),OpaqueFunction(function=nodes)])

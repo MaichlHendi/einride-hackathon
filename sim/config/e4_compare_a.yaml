@@ -1,4 +1,4 @@
-# PROVISIONAL E4 owner-requested yield verification, not an ablation run. Requires a validated sensor snapshot.
+# PROVISIONAL E4 yield verification, not an ablation run. Requires a validated sensor snapshot.
 parameters:
   stack_stage: E4
   map_source: snapshot
@@ -13,7 +13,7 @@ parameters:
 features:
   detector_enabled: true
   detector_source: emulator
-  planning_risk: false # TEAM comparison a: timed risk on Nav2 /plan.
+  planning_risk: false # evaluation comparison a: timed risk on Nav2 /plan.
   planning_look: true
   planning_observation_curves: true
   control_prediction_critic: false

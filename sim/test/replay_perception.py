@@ -11,7 +11,7 @@ from sensor_msgs.msg import Image
 from sensor_msgs_py.point_cloud2 import read_points_numpy
 from rosidl_runtime_py.convert import message_to_ordereddict
 from area_check import messages,seconds
-from team_perception.perception_node import PerceptionNode
+from perception.perception_node import PerceptionNode
 
 
 def replay(directory,output,until=None):
@@ -41,7 +41,7 @@ def replay(directory,output,until=None):
   finally:
    if old_update:node.belief.update=old_update
   if m.detections and node.belief:
-   from team_perception.output import moments
+   from perception.output import moments
    captured.append({'stamp':t,'diagnostics':diagnostics,'tracks':[{'mean':node.belief.grid.to_map(moments(c[:,:2],w,node.p('covariance_epsilon'))[0]).tolist(),'confirmed':node.belief.last_support[i]==t} for i,(c,w) in enumerate(zip(node.belief.clouds,node.belief.weights))]})
  node.process_camera=capture
  node.pub=SimpleNamespace(publish=lambda m:results.append(message_to_ordereddict(m)))

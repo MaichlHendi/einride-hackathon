@@ -18,6 +18,12 @@ if git grep -n -I -E '/home/[^/]+|BEGIN [A-Z ]*PRIVATE KEY|Bearer [A-Za-z0-9_.-]
   failed=1
 fi
 
+if git grep -n -I -E 'team_|\<[Tt][Ee][Aa][Mm]\>' -- . \
+  ':!LICENSE' ':!tools/publication_audit.sh'; then
+  echo 'FAIL: legacy collaboration branding found.' >&2
+  failed=1
+fi
+
 if [[ $failed != 0 ]]; then
   exit 1
 fi

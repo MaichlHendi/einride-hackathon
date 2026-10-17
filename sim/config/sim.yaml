@@ -3,13 +3,13 @@
   ros__parameters:
     ego_camera_width: 0 # [px] 0 inherits upstream; private evaluation override only.
     ego_camera_height: 360 # [px] paired with explicit width override.
-    ego_camera_rate: 5.0 # [Hz sim] owner competition camera rate, evaluation only.
+    ego_camera_rate: 5.0 # [Hz sim] competition camera rate, evaluation only.
     use_sim_time: true # [bool] Required for all simulation nodes.
     traffic_count: 3 # [count] Scenario input, 0..3; validate launch coverage.
     route_seed: 7 # [integer] Scenario-controlled deterministic Saga seed.
     traffic_modes: [ignore, ignore, ignore] # Per robot: ignore/stop_near/random_wander/yield.
     traffic_spawns: [0.8, -0.8, 0.0, -0.8, -1.6, 1.57, 0.8, 1.6, -1.57] # PROVISIONAL [m,m,rad] triples; verify free spawn cells.
-    run_dir: /tmp/team_sim_run # Runtime generated world/map; runner supplies unique directory.
+    run_dir: /tmp/sim_run # Runtime generated world/map; runner supplies unique directory.
     saga_url: http://127.0.0.1:8000 # Local simulation server only.
     saga_source: '' # Source path supplied by runner; no modifications there.
     saga_poll_period: 0.5 # PROVISIONAL [s sim] Measure organiser/traffic response latency.
@@ -34,10 +34,10 @@
     wander_dwell: 3.0 # PROVISIONAL [s sim] Random wander pause; does not advance unrelated Saga routes.
     collision_footprint_length: 0.252 # [m] Symmetric cover of model wheel extrema x=-0.12504/+0.12596.
     collision_footprint_width: 0.232 # [m] Covers body STL y=+/-0.11521, rounded outward.
-    traffic_yield_distance: 0.35 # PROVISIONAL [m centre distance] Owner-directed ahead stop threshold.
+    traffic_yield_distance: 0.35 # PROVISIONAL [m centre distance] Configured ahead stop threshold.
     traffic_yield_half_angle: 1.5707963267948966 # PROVISIONAL [rad] Forward half-plane, no response to robots behind.
-    robot_length: 0.245 # [m] TEAM model nominal footprint; review measured outline.
-    robot_width: 0.230 # [m] TEAM model nominal footprint; review measured outline.
+    robot_length: 0.245 # [m] simulator model nominal footprint; review measured outline.
+    robot_width: 0.230 # [m] simulator model nominal footprint; review measured outline.
     robot_height: 0.177 # [m] Audited full mesh maximum including lidar; no taller antenna mesh.
     map_resolution: 0.04 # PROVISIONAL [m/cell] Sim oracle grid; check routing clearance.
     map_extent: 3.12 # PROVISIONAL [m] Half grid extent; covers documented 6m arena + walls.
@@ -60,7 +60,7 @@
     depth_topic: /oak/stereo/image_raw # Simulation depth; learned stereo not used.
     metrics_rate: 1.0 # PROVISIONAL [Hz sim] CSV snapshot rate; align with analysis needs.
     metric_detection_frame_max_age: 0.5 # PROVISIONAL [s sim] Latest processed camera receipt with >=1 ranged detection labels the prediction frame; otherwise coasting.
-    acceptance_wait_limit: 15.0 # [s sim] Owner's new E4 continuous-hold acceptance bound.
+    acceptance_wait_limit: 15.0 # [s sim] E4 continuous-hold acceptance bound.
     metric_zero_linear_speed: 0.000001 # PROVISIONAL [m/s] Numerical zero for recorded final commands; not a guard threshold.
     metric_zero_angular_speed: 0.000001 # PROVISIONAL [rad/s] Numerical zero for recorded turns; not a guard threshold.
     metric_match_tolerance: 0.12 # PROVISIONAL [s sim] Future truth interpolation maximum gap.
@@ -88,7 +88,7 @@
     headless: true # [bool] Set false for Gazebo window.
     foxglove: false # [bool] Local viewer bridge on port below.
     foxglove_port: 8765 # [TCP port] User-requested ws://localhost:8765.
-    map_source: sensors # [enum] sensors/snapshot/fixture; fixture is TEMPORARY Phase 2 isolation only.
+    map_source: sensors # [enum] sensors/snapshot/fixture; fixture is evaluation-only.
     map_snapshot: '' # Path to sensor-built map snapshot; no oracle fallback.
     event_start_delay: 0.0 # PROVISIONAL [s sim] Delay organiser Start for hold-before-event tests.
     manual_goal: 0 # [dock ID] E1 hand-supplied dock, ignored in mission stages.
@@ -103,7 +103,7 @@
     perception_floor_cue: true # [bool] V1 feature switch.
     perception_height_cue: true # [bool] V1 feature switch.
     perception_depth_cue: true # [bool] V1 feature switch.
-    planning_risk: false # Owner v1 decision: timed-path risk disabled; code retained. # [bool] V1 feature switch; E0-E2 explicitly disable.
+    planning_risk: false # V1 configuration: timed-path risk disabled; code retained. # [bool] V1 feature switch; E0-E2 explicitly disable.
     planning_risk_tolerance: -1.0 # PROVISIONAL [probability; -1 uses Planning config] Stricter E3 branch-coverage override; baseline unchanged.
     planning_look: true # [bool] V1 feature switch.
     planning_observation_curves: true # [bool] V1 feature switch.

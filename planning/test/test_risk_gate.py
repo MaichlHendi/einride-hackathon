@@ -1,4 +1,4 @@
-from team_planning.risk_gate import RiskGate
+from planning.risk_gate import RiskGate
 
 
 def gate():return RiskGate(8.,1.,4.,3.)

@@ -5,9 +5,9 @@
     seed: 17 # [integer] Repeatable filter RNG; vary in future ablations.
     prediction_seed: 29 # [integer] Separate rollout RNG; does not mutate posterior.
     camera_measurement_birth: true # PROVISIONAL [bool] Initialise unseen slot from actual camera range, avoiding empty likelihood support.
-    camera_birth_sigma_scale: 1.4142135623730951 # PROVISIONAL [dimensionless] Same sqrt(2) proposal spread as verified replay; exposed for owner calibration.
+    camera_birth_sigma_scale: 1.4142135623730951 # PROVISIONAL [dimensionless] Same sqrt(2) proposal spread as verified replay; exposed for calibration.
     camera_birth_draw_multiplier: 4 # PROVISIONAL [samples per particle] Rejection proposal budget for free map support.
-    cpu_log_period: 30.0 # [s wall] Owner-requested process CPU log interval; 100% = one core.
+    cpu_log_period: 30.0 # [s wall] Process CPU log interval; 100% = one core.
     subscription_audit_period: 5.0 # PROVISIONAL [s ROS] Refresh declared/published type diagnostics.
     runtime_report_period: 1.0 # PROVISIONAL [s wall] Lightweight commissioning telemetry.
     particles_per_robot: 160 # PROVISIONAL [particles] Benchmark Jetson with full workload.
@@ -18,7 +18,7 @@
     horizon: 4.0 # PROVISIONAL [s] Covers planning 3s plus sensor/output lag.
     max_groups: 4 # PROVISIONAL [groups] Benchmark representation loss.
     minimum_group_mass: 0.06 # PROVISIONAL [probability] Compare retained modes; rest stays spatial leftover.
-    mode_cell_size: 0.7 # TEMPORARY [m] Spatial route-mode partition; needs owner topology review.
+    mode_cell_size: 0.7 # TEMPORARY [m] Spatial route-mode partition; needs route-topology review.
     covariance_epsilon: 0.000001 # PROVISIONAL [m^2] Numerical positive-definiteness.
     robot_radius: 0.168 # [m] Circumscribed nominal footprint, rounded upwards.
     robot_height: 0.177 # [m] Sim mesh maximum: lidar mounting 0.142 + housing 0.035; hardware extent PROVISIONAL.
@@ -78,7 +78,7 @@
     turn_noise: 0.4 # PROVISIONAL [rad/s/sqrt(s)] Tune calibration.
     steering_gain: 2.0 # PROVISIONAL [1/s] Fit heading response.
     steering_strength: 1.0 # PROVISIONAL [1/s] Tune destination persistence.
-    dock_free_threshold: 0.15 # PROVISIONAL [probability] Owner review with planning.
+    dock_free_threshold: 0.15 # PROVISIONAL [probability] Requires planning review.
     understanding_age: 1.0 # PROVISIONAL [s] Unconfirmed support age threshold.
     understanding_radius: 0.5 # PROVISIONAL [m] Relevant plan neighbourhood.
     saga_stale_timeout: 3.0 # PROVISIONAL [s sim] Release destination exclusions on stale own route.

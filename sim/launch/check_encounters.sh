@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Owner-requested verification only: one fixed configuration, no tuning/ablations.
+# Fixed verification only: one fixed configuration, no tuning/ablations.
 set -e
 sim_repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)
 workspace=$(cd -- "$sim_repo/.." && pwd)
@@ -7,7 +7,7 @@ source /opt/ros/jazzy/setup.bash
 export PATH=/usr/bin:/bin:$PATH
 source "$workspace/install/setup.bash"
 export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST FASTDDS_BUILTIN_TRANSPORTS=UDPv4
-export ROS_DOMAIN_ID=${TEAM_SIM_DOMAIN_ID:-88}
+export ROS_DOMAIN_ID=${AUTONOMY_SIM_DOMAIN_ID:-88}
 output=${1:-$sim_repo/data/encounters_$(date +%Y%m%d_%H%M%S)}
 mkdir -p "$output"
 output=$(cd -- "$output" && pwd)
@@ -17,7 +17,7 @@ run_case() {
   local name=$1 stage=$2 count=$3 duration=$4 scenario=$5
   shift 5
   printf 'Starting %s\n' "$name"
-  if ros2 run team_sim sim_experiment_node --workspace "$workspace" \
+  if ros2 run sim sim_experiment_node --workspace "$workspace" \
       --scenario "$sim_repo/sim/config/$scenario" --output-dir "$output/$name" \
       --ros-args -p stack_stage:="$stage" -p traffic_count:="$count" \
       -p duration:="$duration" -p run_wall_timeout:=3600.0 -p headless:=true \

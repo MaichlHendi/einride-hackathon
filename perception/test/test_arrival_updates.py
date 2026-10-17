@@ -1,8 +1,8 @@
 import rclpy
-from team_interfaces.msg import SagaState
+from interfaces.msg import SagaState
 from vision_msgs.msg import Detection2DArray
 from sensor_msgs.msg import LaserScan
-from team_perception.perception_node import PerceptionNode
+from perception.perception_node import PerceptionNode
 
 
 def test_arrivals_wake_filter_only_during_running_event_and_pause_clears_queue():

@@ -5,9 +5,9 @@ from pathlib import Path
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 from area_check import messages,seconds
-from team_sim.history import PoseHistory
-from team_sim.detector_node import pose_matrix
-from team_sim.detector import transform
+from sim.history import PoseHistory
+from sim.detector_node import pose_matrix
+from sim.detector import transform
 from tf2_ros import Buffer
 from rclpy.duration import Duration
 from rclpy.time import Time

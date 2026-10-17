@@ -2,7 +2,7 @@
 import numpy as np
 import rclpy
 from sensor_msgs.msg import Image, CameraInfo
-from team_control.depth_node import DepthNode
+from control.depth_node import DepthNode
 
 
 def test_depth_guard_mm_equals_metres_with_padding_and_endianness():

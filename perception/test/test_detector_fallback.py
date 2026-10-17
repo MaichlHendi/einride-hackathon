@@ -1,5 +1,5 @@
 import pytest
-from team_perception import detector
+from perception import detector
 
 @pytest.mark.parametrize('error',[ImportError('cuda absent'),RuntimeError('engine incompatible')])
 def test_trt_import_or_load_failure_falls_back_to_cpu(monkeypatch,error):

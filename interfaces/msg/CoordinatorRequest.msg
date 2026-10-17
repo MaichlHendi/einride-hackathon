@@ -9,7 +9,7 @@ uint64 map_revision
 uint8 mode # Default WAIT; unknown modes rejected and held.
 builtin_interfaces/Time valid_until # Absolute lease expiry; heartbeat may only extend this.
 string reason
-team_interfaces/PlannedTrajectory trajectory # DRIVE only; goal/revision must match outer fields.
+interfaces/PlannedTrajectory trajectory # DRIVE only; goal/revision must match outer fields.
 float64 speed_limit # DRIVE absolute nonnegative limit [m/s], NOT percent.
 float64 target_heading # LOOK absolute desired camera-facing map heading [rad].
 builtin_interfaces/Duration look_timeout # LOOK execution timeout [s, ns].
