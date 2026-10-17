@@ -12,7 +12,7 @@ if [[ ! -f "$snapshot" ]]; then
   printf 'Sensor-built map snapshot missing: %s\nRun the documented E0 check first.\n' "$snapshot" >&2
   exit 1
 fi
-output="$sim_repo/data/watch_$(date +%Y%m%d_%H%M%S)"
+output="$workspace/runs/watch_$(date +%Y%m%d_%H%M%S)"
 exec ros2 run team_sim sim_experiment_node --workspace "$workspace" \
   --scenario "$sim_repo/sim/config/e4.yaml" --output-dir "$output" \
   --ros-args -p headless:=false -p foxglove:=true -p map_snapshot:="$snapshot"

@@ -12,7 +12,7 @@
     wheel_radius: 0.04 # [m] Hardware wheel radius.
     encoder_distance_scale: 0.01 # [m/cm] MEASURED: distance_m = position * wheel_radius / 100; driver receives integer cm. Both sides increase forward.
     velocity_window: 0.25 # PROVISIONAL [s] Requested ~0.25 s trailing displacement window for 1 cm quantisation at ~20 Hz; pose still integrates each delta.
-    effective_track: 0.38 # PROVISIONAL [m] Mohammed real skid-steer measurement; stale-IMU fallback ONLY, replaces earlier .21701 estimate.
+    effective_track: 0.38 # PROVISIONAL [m] Team skid-steer measurement; stale-IMU fallback ONLY, replaces earlier .21701 estimate.
     bias_duration: 2.0 # [s] User decision: initial continuous stationary gyro calibration.
     stationary_bias_duration: 0.5 # [s] User decision: refresh bias after strictly longer than this with no encoder change.
     stationary_bias_min_samples: 5 # PROVISIONAL [IMU samples] Support required in trailing .5 s refresh window.

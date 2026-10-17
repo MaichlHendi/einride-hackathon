@@ -1,4 +1,4 @@
-# PROVISIONAL Mohammed hardware measurements, 8 October. Deep overlay on control.yaml only for hardware.
+# PROVISIONAL team hardware measurements, 8 October. Deep overlay on control.yaml only for hardware.
 /**:
   ros__parameters:
     hardware_minimum_commands: true # [bool] Floors before collision_monitor; never boosts guard output.
