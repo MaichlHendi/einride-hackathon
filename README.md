@@ -7,13 +7,25 @@ shared ROS interfaces, and a multi-robot evaluation harness.
 
 ## Demo
 
+### Prediction-aware navigation
+
 <p align="center">
-  <img src="demo.gif" alt="Autonomous robot replanning around another moving robot using predicted motion" width="960">
+  <img src="./demo.gif" alt="Autonomous robot replanning around another moving robot using predicted motion" width="960">
 </p>
 
 <p align="center"><em>
 Prediction-aware avoidance in simulation: the robot predicts the other robot's
 motion, updates its global path, and follows the safer route around it.
+</em></p>
+
+### Robot detection
+
+<p align="center">
+  <img src="./robot-detector.gif" alt="Robot detector identifying robots in five camera views" width="960">
+</p>
+
+<p align="center"><em>
+Robot detections across five camera views, with bounding boxes and confidence scores.
 </em></p>
 
 The export is intentionally source-only. It contains no robot-vendor source,
@@ -51,7 +63,7 @@ files. Those dependencies are deliberately not included here.
 ```bash
 mkdir -p ~/autonomy_ws/src
 cd ~/autonomy_ws/src
-git clone YOUR_GITHUB_URL einride-hackathon
+git clone https://github.com/MaichlHendi/einride-hackathon.git einride-hackathon
 cd einride-hackathon
 ./tools/fetch_dependencies.sh
 
